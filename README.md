@@ -1,2 +1,2 @@
 # Mario-Game-
-Create a Mario Game using C++ Sfml Library
+A Mario Game which created by using C++ Sfml Library
