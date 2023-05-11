@@ -19,7 +19,8 @@ public:
 		UP,
 		DOWN,
 		LEFT,
-		RIGHT
+		RIGHT,
+		STABLE
 	};
 	int right ; 
 	int check_right;

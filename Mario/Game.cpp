@@ -159,6 +159,7 @@ void Game::update(void)
 					mario.move(Object::Directions::LEFT);
 				}
 			}
+			else mario.move(Object::Directions::STABLE);
 
 		} 
 

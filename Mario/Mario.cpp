@@ -18,8 +18,9 @@ Mario::Mario(RenderWindow *window):Object(window)
 		}
 
 	}
-	speed = 4;
+	speed = 15;
 	state = 0;
+	check_right = 1;
 
 	sprite.setTexture(textures[state]); 
 	right = 1;
@@ -35,21 +36,58 @@ void Mario::move(Directions dir)
 
 			check_right = 1;
 			sprite.move(Vector2f(speed, 0));
-			state = 3;
+			state =2;
 			cout << "State 0dan " << state << endl;
 		}
-		
+
 		if (dir == LEFT)
 		{
 
 			check_right = 0;
 			sprite.move(Vector2f(-speed, 0));
-			state = 3;
-		
+			state = 2;
+
 			cout << "State 0dan " << state << endl;
 		}
-		break;
+		if (dir == UP)
+		{
+			sprite.move(Vector2f(0, -speed*5));
+			state = 5;
 
+			cout << "State 0dan " << state << endl;
+		}
+
+
+		if (dir == STABLE) state = 0;	
+		
+
+
+	break;
+	case 1:
+
+		if (dir == RIGHT)
+		{
+
+			check_right = 1;
+
+			sprite.move(Vector2f(speed, 0));
+			state = 0;
+
+			cout << "State 2den " << state << endl;
+		}
+
+		if (dir == LEFT)
+		{
+
+			check_right = 0;
+			sprite.move(Vector2f(-speed, 0));
+			state = 0;
+			cout << "State 2den " << state << endl;
+
+		}
+		if (dir == STABLE) state = 0;
+
+	break;
 
 	case 2:
 
@@ -57,23 +95,25 @@ void Mario::move(Directions dir)
 		{
 
 			check_right = 1;
-			
+
 			sprite.move(Vector2f(speed, 0));
 			state = 3;
-			
-			cout << "State 2den " << state<<endl;
+
+			cout << "State 2den " << state << endl;
 		}
-		
+
 		if (dir == LEFT)
 		{
 
 			check_right = 0;
 			sprite.move(Vector2f(-speed, 0));
-			state =3;
+			state = 3;
 			cout << "State 2den " << state << endl;
 
 		}
-		break;
+		if (dir == STABLE) state = 0;
+
+	break;
 	case 3:
 
 		if (dir == RIGHT)
@@ -81,7 +121,7 @@ void Mario::move(Directions dir)
 
 			check_right = 1;
 			sprite.move(Vector2f(speed, 0));
-			state = 2;
+			state = 1;
 			cout << "State 3den " << state << endl;
 		}
 		if (dir == LEFT)
@@ -89,13 +129,29 @@ void Mario::move(Directions dir)
 
 			check_right = 0;
 			sprite.move(Vector2f(-speed, 0));
-			state =2;
+			state = 1;
 			cout << "State 3den " << state << endl;
 
 		}
-		break;
-	};
+		if (dir == STABLE) state = 0;
+
+	break;
 	
+	case 4:
+
+	break;
+	case 5:
+		sprite.move(Vector2f(0, speed * 5));
+		state = 0;
+
+		cout << "State 0dan " << state << endl;
+	
+	break;
+
+
+};
+
+
 	
 	if (check_right!=right)
 	{ 
