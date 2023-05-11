@@ -26,8 +26,11 @@
 		window.display();
 */
 int main()
-{
-	Game game;
+{   
+	RenderWindow* window;
+
+	window = new RenderWindow(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MARIO GAME");
+	Game game(window);
 	game.update();
 	return 0;
 }
