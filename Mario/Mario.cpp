@@ -18,7 +18,7 @@ Mario::Mario(RenderWindow *window):Object(window)
 		}
 
 	}
-	speed = 8;
+	speed = 15;
 	state = 0;
 	check_right = 1;
 
