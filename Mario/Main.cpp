@@ -1,5 +1,7 @@
 ﻿#include "Common.h"
 #include "Game.h"
+#include "Menu.h"
+#include <Windows.h>
 /*
 
 	 sf::RenderWindow window(sf::VideoMode (1024,768), "Mario Game");
@@ -26,11 +28,23 @@
 		window.display();
 */
 int main()
-{   
-	RenderWindow* window;
+{
+	HWND hWnd = GetConsoleWindow();
 
-	window = new RenderWindow(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MARIO GAME");
-	Game game(window);
-	game.update();
-	return 0;
+	// minimize the window
+	ShowWindow(hWnd, SW_MINIMIZE);
+	
+	RenderWindow* gamewindow;
+	RenderWindow* menuWindow;
+	menuWindow= new RenderWindow(VideoMode(1920, WINDOW_HEIGHT), "Menu");
+
+	Menu menu(menuWindow);
+	menu.update();
+	if(menu.getStarted()) {
+		menu.~Menu();
+		gamewindow = new RenderWindow(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MARIO GAME");
+		Game game(gamewindow);
+		game.update();
+	}
+	exit(0);
 }
