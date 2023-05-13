@@ -107,12 +107,12 @@ void Game::drawBackground(RenderWindow& window) {
 	brickSprite[2].setPosition(0, 500); //float(window.getSize().y - (floor.getSize().y - 50))
 
 	
-	brickSprite[3].setTextureRect(IntRect(0, 0, 12 * float(Brick.getSize().x), Brick.getSize().y));
+	brickSprite[3].setTextureRect(IntRect(0, 0, 4 * float(Brick.getSize().x), Brick.getSize().y));
 	brickSprite[3].setPosition(float(window.getSize().x) - 4 * float(Brick.getSize().x), 500); //float(window.getSize().y - (floor.getSize().y - 50))
 
 	
 	brickSprite[4].setTextureRect(IntRect(0, 0, 16 * float(Brick.getSize().x), Brick.getSize().y));
-	brickSprite[4].setPosition(9 * float(Brick.getSize().x), 450); //float(window.getSize().y - (floor.getSize().y - 50))
+	brickSprite[4].setPosition(float(window.getSize().x/2 - 8 * float(Brick.getSize().x)), 450); //float(window.getSize().y - (floor.getSize().y - 50))
 
 	
 	brickSprite[5].setTextureRect(IntRect(0, 0, 12 * float(Brick.getSize().x), Brick.getSize().y));
@@ -139,7 +139,7 @@ void Game::update(void)
 		while (window->pollEvent(event))
 		{
 			if (event.type == Event::Closed)
-				window->close();   
+				window->close();
 			if (event.type == Event::KeyPressed)
 			{
 				if (event.key.code == Keyboard::Up)
@@ -161,7 +161,7 @@ void Game::update(void)
 			}
 			else mario.move(Object::Directions::STABLE);
 
-		} 
+		}
 
 		window->clear();
 		window->draw(floorSprite);
