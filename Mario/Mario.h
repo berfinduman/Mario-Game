@@ -11,4 +11,6 @@ public:
 	//void move(void); //Abstract method that will be overridden 
 	void fall(void); //Abstract method that will be overridden 
 	void jump(bool down);
+	
 };
+
