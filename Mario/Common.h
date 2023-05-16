@@ -12,6 +12,6 @@ using namespace std;
 using namespace sf;
 #define WINDOW_WIDTH	960
 #define WINDOW_HEIGHT	1080
-#define NUM_TURTLES		3
+#define NUM_TURTLES		5
 #define MARIO_LIVES		3
 

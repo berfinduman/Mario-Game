@@ -18,8 +18,9 @@ Mario::Mario(RenderWindow *window):Object(window)
 		}
 
 	}
-	speed = 15;
+	
 	state = 0;
+	speed = 15;
 	check_right = 1;
 
 	sprite.setTexture(textures[state]); 
@@ -37,9 +38,10 @@ void Mario::move(Directions dir)
 		{
 
 			check_right = 1;
-			sprite.move(Vector2f(speed, 0));
+			setSpeed(speed, 0);
+			sprite.move(vx, vy);
 			state =2;
-			cout << "State 0dan " << state << endl;
+			//cout << "State 0dan " << state << endl;
 		}
 
 		if (dir ==JUMPR)
@@ -47,19 +49,32 @@ void Mario::move(Directions dir)
 			//cout << "Girdi";
 			check_right = 1;
 			jump(false);
-			sprite.move(Vector2f(3*speed, 0));
-			state = 2;
-			cout << "State 0dan " << state << endl;
+			setSpeed(3*speed, 0);
+			sprite.move(vx, vy);
+			state = 5;
+			//cout << "State 0dan " << state << endl;
 		}
+		if (dir == JUMPL)
+		{
+			//cout << "Girdi";
+			check_right = 0;
+			jump(false);
+			setSpeed(-3 * speed, 0);
+			sprite.move(vx, vy);
+			state = 5;
+			//cout << "State 0dan " << state << endl;
+		}
+
 
 		if (dir == LEFT)
 		{
 
 			check_right = 0;
-			sprite.move(Vector2f(-speed, 0));
+			setSpeed(-speed, 0);
+			sprite.move(vx, vy);
 			state = 2;
 
-			cout << "State 0dan " << state << endl;
+			//cout << "State 0dan " << state << endl;
 		}
 		if (dir == UP)
 		{
@@ -67,17 +82,18 @@ void Mario::move(Directions dir)
 
 			//sprite.move(Vector2f(90, -float(window->getSize().y)/4.f));
 			//cout << window->getSize().x<< endl;
-			//cout << "Neler oluyor"<< endl;
+			cout << "Neler oluyor"<< endl;
 			//cout << float(window->getSize().y) << endl;
 			//sprite.move(Vector2f(0, -75));
-			jump(false);
+
+			prev_y = sprite.getPosition().y;
 			state = 5;
 			//cout << float(this->window->getSize().y) << endl;
-			cout << "State 0dan " << state << endl;
+			//cout << "State 0dan " << state << endl;
 		}
 
 
-		if (dir == STABLE) state = 0;	
+		
 		
 
 
@@ -89,22 +105,24 @@ void Mario::move(Directions dir)
 
 			check_right = 1;
 
-			sprite.move(Vector2f(speed, 0));
+			setSpeed(speed, 0);
+			sprite.move(vx, vy);
 			state = 0;
 
-			cout << "State 2den " << state << endl;
+			//cout << "State 2den " << state << endl;
 		}
 
 		if (dir == LEFT)
 		{
 
 			check_right = 0;
-			sprite.move(Vector2f(-speed, 0));
+			setSpeed(-speed, 0);
+			sprite.move(vx, vy);
 			state = 0;
-			cout << "State 2den " << state << endl;
+			//cout << "State 2den " << state << endl;
 
 		}
-		if (dir == STABLE) state = 0;
+		
 
 	break;
 
@@ -115,22 +133,24 @@ void Mario::move(Directions dir)
 
 			check_right = 1;
 
-			sprite.move(Vector2f(speed, 0));
+			setSpeed(speed, 0);
+			sprite.move(vx, vy);
 			state = 3;
 
-			cout << "State 2den " << state << endl;
+			//cout << "State 2den " << state << endl;
 		}
 
 		if (dir == LEFT)
 		{
 
 			check_right = 0;
-			sprite.move(Vector2f(-speed, 0));
+			setSpeed(-speed, 0);
+			sprite.move(vx, vy);
 			state = 3;
-			cout << "State 2den " << state << endl;
+			//cout << "State 2den " << state << endl;
 
 		}
-		if (dir == STABLE) state = 0;
+	
 
 	break;
 	case 3:
@@ -139,36 +159,57 @@ void Mario::move(Directions dir)
 		{
 
 			check_right = 1;
-			sprite.move(Vector2f(speed, 0));
+			setSpeed(speed, 0);
+			sprite.move(vx, vy);
 			state = 1;
-			cout << "State 3den " << state << endl;
+			//cout << "State 3den " << state << endl;
 		}
 		if (dir == LEFT)
 		{
 
 			check_right = 0;
-			sprite.move(Vector2f(-speed, 0));
+			setSpeed(-speed, 0);
+			sprite.move(vx, vy);
 			state = 1;
-			cout << "State 3den " << state << endl;
+			//cout << "State 3den " << state << endl;
 
 		}
-		if (dir == STABLE) state = 0;
+	
 
 	break;
 	
 	case 4:
 
 	break;
+	/*
 	case 5:
-
+		//cout << "now " << dir << "before"<< prevDir;
+		if (prevDir == UP)
+		{ 
 		//sprite.move(Vector2f(-90, float(window->getSize().y) / 4.f));
-		sprite.move(Vector2f(0, 75));
+		setSpeed(0, 120);
+		sprite.move(vx, vy);
+
+		//cout << "State 0dan " << state << endl;
+		}
+		else if (prevDir == JUMPR)
+		{
+			//cout <<"*---*-*--*-*-**-*-*-*-*-*-*-**-*--*";
+		setSpeed(3 * speed, 120);
+		sprite.move(vx, vy);
+
+		}
+		else if (prevDir == JUMPL)
+		{
+			//cout <<"*---*-*--*-*-**-*-*-*-*-*-*-**-*--*";
+			setSpeed(-3 * speed, 120);
+			sprite.move(vx, vy);
+
+		}
+		
 		state = 0;
-
-		cout << "State 0dan " << state << endl;
+	break;*/
 	
-	break;
-
 
 };
 
@@ -185,7 +226,7 @@ void Mario::move(Directions dir)
 		sprite.setScale(1.f, 1.f);
 	}}
 	sprite.setTexture(textures[state]);
-	cout << "Right" << heading << "Check" << check_right << endl;
+	//cout << "Right" << heading << "Check" << check_right << endl;
 	heading= check_right;
 	
 	
@@ -193,14 +234,64 @@ void Mario::move(Directions dir)
 
 void Mario::jump(bool down)
 {
+	float y_vel = 9.8 * 10 / 5.0f;
 	if (down)
 	{
-		sprite.move(Vector2f(0, +40));
+		
+		setSpeed(0, y_vel);
+		sprite.move(vx, vy);
 	}
 
 	else
 	{
-		sprite.move(Vector2f(0, -75));
+		setSpeed(0, -y_vel);
+		sprite.move(vx, vy);
 	}
+
+}
+void Mario::draw(RenderWindow& window)
+{
+	
+	if (state==5)
+	{
+		atJumpingState = true;
+		//if (DirJ == RIGHT)sprite.move(50, 0);
+		sprite.setTexture(textures[state]);
+		//cout << "PrevY :   " << prev_y << "NowY " << sprite.getPosition().y <<"FARK   " << sprite.getPosition().y - prev_y  << endl;
+		
+		if (0<=(prev_y -sprite.getPosition().y) and (prev_y - sprite.getPosition().y) <100)
+		{ 
+			if (DirJ == LEFT) sprite.move(-50, 0);
+			if (DirJ == RIGHT)sprite.move(50, 0);
+		jump(false);
+		cout << "PrevY :   " << prev_y << "NowY " << sprite.getPosition().y <<"FARK   " << prev_y - sprite.getPosition().y << endl;
+
+		}
+		else if (prev_y - sprite.getPosition().y >= 100)
+		{
+			if (DirJ == RIGHT)sprite.move(-50, 0);
+			if (DirJ == LEFT) sprite.move(+50, 0);
+			prev_y = sprite.getPosition().y-1;
+			cout << "Else" << prev_y << endl;
+		}
+
+		if (prev_y - sprite.getPosition().y < 0.0f)
+		{
+
+			jump(true);
+			cout << "TRUEPrevY :   " << prev_y << "NowY " << sprite.getPosition().y << "FARK   " << prev_y - sprite.getPosition().y << endl;
+
+		}
+		if (prev_y - sprite.getPosition().y < -100.0f)
+		{
+			atJumpingState = false;
+
+			state = 0;
+			sprite.setTexture(textures[state]);
+		}
+
+
+	}
+	window.draw(sprite);
 
 }

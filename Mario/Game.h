@@ -17,15 +17,16 @@ class Game
 	Sprite brickSprite[7];
 	Texture LiveMario;
 	Sprite liveSprite[3];
+	int prevKeyCode; 
+
+
 	int appear_turtle;
 	int temp_appear = 0;
 	int n_turtle = 0;
-	
-	//Mario* mario; 
-	//Turtle* turtle;
+
 	ScoreBoard scoreboard;
 	int speed=10;
-	int initial = 10;
+	int initial_live_s = 10;
 	Object* objects; 
 	int heading;
 public:      
@@ -38,6 +39,7 @@ public:
 	void drawBackground(RenderWindow& window);
 	void drawObjects(void);
 	void removeObjects(Object*);
+	bool checkBoundary(Object* obj);
 	
 	bool onFloor(Object* obj); //Checks if object is touching a floor surface
 	//bool checkCollusion(Turtle *t, Mario *m, int& side); ////Checks if Mario has hit a turtle and from which side

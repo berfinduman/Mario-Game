@@ -11,7 +11,7 @@ public:
 	
 	//virtual void move(void); 
 	void fall(void); 
-	virtual void draw(RenderWindow& window);
+	void draw(RenderWindow& window);
 	void jump(bool down);
 	
 

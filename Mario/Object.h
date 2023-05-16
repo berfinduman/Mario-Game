@@ -10,7 +10,7 @@ class Object {
 protected:	
 	
 	RenderWindow* window; 
-	int state; //Current animation state of the object (one of animation states)
+	 //Current animation state of the object (one of animation states)
 	int heading=0; //Facing direction of object
 	float vx;
 	float vy;
@@ -24,8 +24,10 @@ public:
 		LEFT,
 		RIGHT,
 		STABLE,
-		JUMPR
+		JUMPR,
+		JUMPL
 	};
+	int state;
 	int right ; 
 	int check_right;
 	int speed;
@@ -43,6 +45,7 @@ public:
 
 	}
 	void setSpeed(float x, float y);
+	Vector2f getSpeed(void); 
 
 
 
