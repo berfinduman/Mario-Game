@@ -166,7 +166,6 @@ void Game::update(void)
 							 mario->state = 5;
 							 mario->prev_y = mario->sprite.getPosition().y;
 							 mario->DirJ = Object::Directions::RIGHT;
-							 mario->atJumpingState = true;
 						 }
 						 else
 							mario->move(Object::Directions::RIGHT);
@@ -178,7 +177,6 @@ void Game::update(void)
 							 mario->state = 5;
 							 mario->prev_y = mario->sprite.getPosition().y;
 							 mario->DirJ = Object::Directions::LEFT;
-							 mario->atJumpingState = true;
 						 }
 						 else
 							 mario->move(Object::Directions::LEFT);
@@ -198,7 +196,7 @@ void Game::update(void)
 					{
 						mario->DirJ = Object::Directions::LEFT;
 					}
-					if (event.key.code == Keyboard::Right)
+					else if (event.key.code == Keyboard::Right)
 					{
 						mario->DirJ = Object::Directions::RIGHT;
 					}

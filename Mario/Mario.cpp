@@ -280,7 +280,6 @@ void Mario::draw(RenderWindow& window)
 		{
 			if (DirJ == RIGHT)sprite.move(+20, 0);
 			if (DirJ == LEFT) sprite.move(-20, 0);
-			DirJ = STABLE;
 			jump(true);
 			cout << "TRUEPrevY :   " << prev_y << "NowY " << sprite.getPosition().y << "FARK   " << prev_y - sprite.getPosition().y << endl;
 
@@ -288,7 +287,7 @@ void Mario::draw(RenderWindow& window)
 		if (prev_y - sprite.getPosition().y < -100.0f)
 		{
 			atJumpingState = false;
-
+			DirJ = STABLE;
 			state = 0;
 			sprite.setTexture(textures[state]);
 		}
