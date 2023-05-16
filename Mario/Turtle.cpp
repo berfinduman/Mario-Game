@@ -28,7 +28,7 @@ void Turtle::draw(RenderWindow& window)
 	
 
 	sprite.setTexture(textures[state]);
-	window.draw(sprite);
+	
 
 	if (!heading) sprite.move(vx, vy);
 	else sprite.move(-vx, vy);
@@ -53,7 +53,7 @@ void Turtle::draw(RenderWindow& window)
 	break;
 	
 	}
-	
+	window.draw(sprite);
 
 }
 
@@ -62,7 +62,7 @@ void Turtle::jump(bool down)
 {
 	if (down)
 	{
-		sprite.move(0, 40);
+		setSpeed(0, 40);
 	}
 	else
 	{

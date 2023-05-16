@@ -2,8 +2,8 @@
 #include "Common.h"
  
 class Mario:public Object {
-	float vx=0;
-	float vy=0;
+protected:
+	
 public: 
 	
 	Mario(RenderWindow* window);
@@ -11,6 +11,10 @@ public:
 	//void move(void); //Abstract method that will be overridden 
 	void fall(void); //Abstract method that will be overridden 
 	void jump(bool down);
+	void draw(RenderWindow& window);
+	float prev_y = 0.0f;
+	bool atJumpingState=false;
+	Directions DirJ;
 	
 };
 

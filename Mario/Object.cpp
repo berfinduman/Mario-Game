@@ -46,3 +46,7 @@ void Object::setSpeed(float x, float y)
 	vx = x; 
 	vy = y;
 }
+Vector2f Object::getSpeed(void)
+{
+	return Vector2f(vx, vy);
+}
