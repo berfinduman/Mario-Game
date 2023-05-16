@@ -145,62 +145,64 @@ void Game::update(void)
 		{
 			if (event.type == Event::Closed)
 				window->close();
-			if (event.type == Event::KeyPressed and !mario->atJumpingState)
+			if (event.type == Event::KeyPressed)
 			{
-				Vector2f prevPos = mario->getPosition();
-				//cout << "PrevPos " << prevPos.x<<" " << prevPos.y << endl;
-				if (event.key.code == Keyboard::Up && Keyboard::isKeyPressed(Keyboard::Right))
-				{
-					//cout << "Jump Right" << endl;
-					mario->move(Object::Directions::JUMPR);
+				if(!mario->atJumpingState) {
+					Vector2f prevPos = mario->getPosition();
+					//cout << "PrevPos " << prevPos.x<<" " << prevPos.y << endl;
+					 if (event.key.code == Keyboard::Up)
+					{
+						//cout << "Selam" << endl; 
+						//mario->move(Object::Directions::UP);
+						mario->state = 5;
+						mario->prev_y = mario->sprite.getPosition().y;
+	
+					}
+					else if (event.key.code == Keyboard::Right)
+					 {
+						 
+						 if (Keyboard::isKeyPressed(Keyboard::Up))
+						 {
+							 mario->state = 5;
+							 mario->prev_y = mario->sprite.getPosition().y;
+							 mario->DirJ = Object::Directions::RIGHT;
+							 mario->atJumpingState = true;
+						 }
+						 else
+							mario->move(Object::Directions::RIGHT);
+					}
+					else if (event.key.code == Keyboard::Left)
+					{
+						 if (Keyboard::isKeyPressed(Keyboard::Up))
+						 {
+							 mario->state = 5;
+							 mario->prev_y = mario->sprite.getPosition().y;
+							 mario->DirJ = Object::Directions::LEFT;
+							 mario->atJumpingState = true;
+						 }
+						 else
+							 mario->move(Object::Directions::LEFT);
+					}
+					if (checkBoundary(mario))
+					{
+						cout << "Fonksiyona girdi" << mario->getPosition().x << "   " << mario->getPosition().y;
+						mario->setSpeed(0, 0);
+						mario->setPosition(prevPos);
+					}
+					prevKeyCode = event.key.code;
+					//Object::Directions prevkeyDir = event.key.code;
+					cout << "Event" << event.key.code << endl;
 				}
-				else if (event.key.code == Keyboard::Up && Keyboard::isKeyPressed(Keyboard::Left))
-				{
-					//cout << "Jump Right" << endl;
-
-					mario->move(Object::Directions::JUMPL);
-
-				}
-				else if (event.key.code == Keyboard::Up )
-				{
-					//cout << "Selam" << endl; 
-					//mario->move(Object::Directions::UP);
-					mario->state = 5;
-					mario->prev_y= mario->sprite.getPosition().y;
-					if (Keyboard::isKeyPressed(Keyboard::Left))
+				else {
+					if (event.key.code == Keyboard::Left)
 					{
 						mario->DirJ = Object::Directions::LEFT;
 					}
-					if (Keyboard::isKeyPressed(Keyboard::Right))
+					if (event.key.code == Keyboard::Right)
 					{
 						mario->DirJ = Object::Directions::RIGHT;
 					}
-
-
-						
-
 				}
-				else if (event.key.code == Keyboard::Down)
-				{
-					mario->move(Object::Directions::DOWN);
-				}
-				else if (event.key.code == Keyboard::Right)
-				{
-					mario->move(Object::Directions::RIGHT);
-				}
-				else if (event.key.code == Keyboard::Left)
-				{
-					mario->move(Object::Directions::LEFT);
-				}
-				if (checkBoundary(mario))
-				{
-					cout << "Fonksiyona girdi"<<mario->getPosition().x<<"   " << mario->getPosition().y;
-					mario->setSpeed(0, 0);
-					mario->setPosition(prevPos);
-				}
-				 prevKeyCode= event.key.code;
-				//Object::Directions prevkeyDir = event.key.code;
-				cout << "Event" << event.key.code<<endl;
 			}
 			
 			else 

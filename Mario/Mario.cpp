@@ -261,23 +261,26 @@ void Mario::draw(RenderWindow& window)
 		
 		if (0<=(prev_y -sprite.getPosition().y) and (prev_y - sprite.getPosition().y) <100)
 		{ 
-			if (DirJ == LEFT) sprite.move(-50, 0);
-			if (DirJ == RIGHT)sprite.move(50, 0);
+			if (DirJ == RIGHT)sprite.move(20, 0);
+			if (DirJ == LEFT) sprite.move(-20, 0);
+			
 		jump(false);
 		cout << "PrevY :   " << prev_y << "NowY " << sprite.getPosition().y <<"FARK   " << prev_y - sprite.getPosition().y << endl;
 
 		}
 		else if (prev_y - sprite.getPosition().y >= 100)
 		{
-			if (DirJ == RIGHT)sprite.move(-50, 0);
-			if (DirJ == LEFT) sprite.move(+50, 0);
+			
 			prev_y = sprite.getPosition().y-1;
 			cout << "Else" << prev_y << endl;
+			
 		}
 
 		if (prev_y - sprite.getPosition().y < 0.0f)
 		{
-
+			if (DirJ == RIGHT)sprite.move(+20, 0);
+			if (DirJ == LEFT) sprite.move(-20, 0);
+			DirJ = STABLE;
 			jump(true);
 			cout << "TRUEPrevY :   " << prev_y << "NowY " << sprite.getPosition().y << "FARK   " << prev_y - sprite.getPosition().y << endl;
 
