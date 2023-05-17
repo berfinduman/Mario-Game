@@ -178,9 +178,6 @@ void Mario::move(Directions dir)
 
 	break;
 	
-	case 4:
-
-	break;
 	/*
 	case 5:
 		//cout << "now " << dir << "before"<< prevDir;
@@ -214,6 +211,9 @@ void Mario::move(Directions dir)
 };
 
 
+
+
+
 	
 	if (check_right!=heading)
 	{ 
@@ -225,7 +225,9 @@ void Mario::move(Directions dir)
 		//sprite.move(Vector2f(-float(textures[state].getSize().x), 0));
 		sprite.setScale(1.f, 1.f);
 	}}
+
 	sprite.setTexture(textures[state]);
+	
 	//cout << "Right" << heading << "Check" << check_right << endl;
 	heading= check_right;
 	
@@ -252,28 +254,28 @@ void Mario::jump(bool down)
 void Mario::draw(RenderWindow& window)
 {
 	
-	if (state==5)
+	if (state == 5)
 	{
 		atJumpingState = true;
 		//if (DirJ == RIGHT)sprite.move(50, 0);
 		sprite.setTexture(textures[state]);
 		//cout << "PrevY :   " << prev_y << "NowY " << sprite.getPosition().y <<"FARK   " << sprite.getPosition().y - prev_y  << endl;
-		
-		if (0<=(prev_y -sprite.getPosition().y) and (prev_y - sprite.getPosition().y) <100)
-		{ 
+
+		if (0 <= (prev_y - sprite.getPosition().y) and (prev_y - sprite.getPosition().y) < 100)
+		{
 			if (DirJ == RIGHT)sprite.move(20, 0);
 			if (DirJ == LEFT) sprite.move(-20, 0);
-			
-		jump(false);
-		cout << "PrevY :   " << prev_y << "NowY " << sprite.getPosition().y <<"FARK   " << prev_y - sprite.getPosition().y << endl;
+
+			jump(false);
+			cout << "PrevY :   " << prev_y << "NowY " << sprite.getPosition().y << "FARK   " << prev_y - sprite.getPosition().y << endl;
 
 		}
 		else if (prev_y - sprite.getPosition().y >= 100)
 		{
-			
-			prev_y = sprite.getPosition().y-1;
+
+			prev_y = sprite.getPosition().y - 1;
 			cout << "Else" << prev_y << endl;
-			
+
 		}
 
 		if (prev_y - sprite.getPosition().y < 0.0f)
@@ -291,9 +293,61 @@ void Mario::draw(RenderWindow& window)
 			state = 0;
 			sprite.setTexture(textures[state]);
 		}
-
+		window.draw(sprite);
+	}
+	else if (state == 4) {
+		atScatingState = true;
+		sprite.setTexture(textures[state]);
+		
+		cout << prev_x << sprite.getPosition().x << "  Bunlar pozisyonlar" << endl;
+		if (scateDirection == Keyboard::Right and sprite.getPosition().x - prev_x < 100)
+		{
+			sprite.move(10, 0);
+		}
+		else if (scateDirection == Keyboard::Left and prev_x - sprite.getPosition().x < 100) {
+			sprite.move(-10, 0);
+		}
+		else 
+		{
+			scateDirection = Keyboard::Down;
+			atScatingState = false;
+			consecutiveEventCount = 0;
+			consecutiveEvent = Keyboard::Down;
+			state = 0;
+			sprite.setTexture(textures[state]);
+		}
+		window.draw(sprite);
 
 	}
-	window.draw(sprite);
+	else
+		Object::draw(window);
+
+}
+
+
+void Mario::consecutiveControl(Keyboard::Key pressedKey){
+
+	if (pressedKey == consecutiveEvent and pressedKey != Keyboard::Down) {
+		consecutiveEventCount++;
+	}
+	else {
+
+		if (consecutiveEventCount > 10) {
+			prev_x = sprite.getPosition().x;
+			state = 4;
+			atScatingState = true;
+			cout << "Kayma yönü consecutivve" << endl;
+			cout << consecutiveEvent << endl;
+			scateDirection = consecutiveEvent;
+			consecutiveEvent = pressedKey;
+		}
+		else
+		{
+			consecutiveEvent = pressedKey;
+			consecutiveEventCount = 1;
+		}
+		
+	}
+
 
 }

@@ -145,7 +145,7 @@ void Game::update(void)
 		{
 			if (event.type == Event::Closed)
 				window->close();
-			if (event.type == Event::KeyPressed)
+			if (event.type == Event::KeyPressed and !mario->atScatingState)
 			{
 				if(!mario->atJumpingState) {
 					Vector2f prevPos = mario->getPosition();
@@ -160,6 +160,8 @@ void Game::update(void)
 					}
 					else if (event.key.code == Keyboard::Right)
 					 {
+						 mario->consecutiveControl(event.key.code);
+
 						 
 						 if (Keyboard::isKeyPressed(Keyboard::Up))
 						 {
@@ -167,19 +169,24 @@ void Game::update(void)
 							 mario->prev_y = mario->sprite.getPosition().y;
 							 mario->DirJ = Object::Directions::RIGHT;
 						 }
-						 else
+						 else if(!mario->atScatingState)
 							mario->move(Object::Directions::RIGHT);
+
+						 
 					}
 					else if (event.key.code == Keyboard::Left)
 					{
+						 mario->consecutiveControl(event.key.code);
 						 if (Keyboard::isKeyPressed(Keyboard::Up))
 						 {
 							 mario->state = 5;
 							 mario->prev_y = mario->sprite.getPosition().y;
 							 mario->DirJ = Object::Directions::LEFT;
 						 }
-						 else
+						 else if (!mario->atScatingState)
 							 mario->move(Object::Directions::LEFT);
+
+						 
 					}
 					if (checkBoundary(mario))
 					{
@@ -206,8 +213,9 @@ void Game::update(void)
 			else 
 				//if (event.type != Event::KeyPressed and prevKeyCode != 723)
 			{
+				mario->consecutiveControl(Keyboard::Down);
 				cout << "YOK Event" << prevKeyCode<<endl;
-				if(prevKeyCode != Keyboard::Up){
+				if(prevKeyCode != Keyboard::Up and !mario->atScatingState){
 				mario->state = 0;
 				mario->sprite.setTexture(mario->textures[mario->state]);}
 				//mario->move(Object::Directions::STABLE);
