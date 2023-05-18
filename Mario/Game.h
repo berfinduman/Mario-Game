@@ -29,6 +29,7 @@ class Game
 	int initial_live_s = 10;
 	Object* objects; 
 	int heading;
+	
 public:      
 	Game(RenderWindow* window); //constructor 
 	Turtle* addTurtle(int heading);		
@@ -40,6 +41,15 @@ public:
 	void drawObjects(void);
 	void removeObjects(Object*);
 	bool checkBoundary(Object* obj);
+	void hitTheBrick(Object* obj);
+	bool checkCollusionwBrick(Object* obj);
+	
+
+
+	void TurtlesCollusion(Object* obj);
+
+	FloatRect rect_turtle;
+	FloatRect rect_t;
 	
 	bool onFloor(Object* obj); //Checks if object is touching a floor surface
 	//bool checkCollusion(Turtle *t, Mario *m, int& side); ////Checks if Mario has hit a turtle and from which side

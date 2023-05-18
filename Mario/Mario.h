@@ -4,6 +4,7 @@
 class Mario:public Object {
 protected:
 	
+	
 public: 
 	
 	Mario(RenderWindow* window);
@@ -12,9 +13,17 @@ public:
 	void fall(void); //Abstract method that will be overridden 
 	void jump(bool down);
 	void draw(RenderWindow& window);
-	float prev_y = 0.0f;
-	bool atJumpingState=false;
+	
+	//bool atJumpingState=false;
+	
 	Directions DirJ;
+	float prev_x = 0.0f;
+	bool atScatingState = false;
+	int consecutiveEventCount = 0;
+	Keyboard::Key consecutiveEvent = Keyboard::Down;
+	Keyboard::Key scateDirection = Keyboard::Down;// temp definiton for initalize
+	bool changedDirection = false;
+	void consecutiveControl(Keyboard::Key key);
 	
 };
 
