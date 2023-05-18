@@ -50,3 +50,8 @@ Vector2f Object::getSpeed(void)
 {
 	return Vector2f(vx, vy);
 }
+
+void Object::jump(bool down) 
+{
+	
+}
