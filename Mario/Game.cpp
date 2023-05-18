@@ -154,6 +154,9 @@ void Game::update(void)
 					{
 						//cout << "Selam" << endl; 
 						//mario->move(Object::Directions::UP);
+
+						 mario->consecutiveEventCount = 1;
+						 mario->atScatingState = 0;
 						mario->state = 5;
 						mario->prev_y = mario->sprite.getPosition().y;
 	
@@ -166,6 +169,7 @@ void Game::update(void)
 						 if (Keyboard::isKeyPressed(Keyboard::Up))
 						 {
 							 mario->state = 5;
+							 mario->atScatingState = 0;
 							 mario->prev_y = mario->sprite.getPosition().y;
 							 mario->DirJ = Object::Directions::RIGHT;
 						 }
@@ -180,6 +184,7 @@ void Game::update(void)
 						 if (Keyboard::isKeyPressed(Keyboard::Up))
 						 {
 							 mario->state = 5;
+							 mario->atScatingState = 0;
 							 mario->prev_y = mario->sprite.getPosition().y;
 							 mario->DirJ = Object::Directions::LEFT;
 						 }

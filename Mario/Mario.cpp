@@ -296,15 +296,14 @@ void Mario::draw(RenderWindow& window)
 		window.draw(sprite);
 	}
 	else if (state == 4) {
-		atScatingState = true;
 		sprite.setTexture(textures[state]);
 		
 		cout << prev_x << sprite.getPosition().x << "  Bunlar pozisyonlar" << endl;
-		if (scateDirection == Keyboard::Right and sprite.getPosition().x - prev_x < 100)
+		if (scateDirection == Keyboard::Right and sprite.getPosition().x - prev_x < 60)
 		{
 			sprite.move(10, 0);
 		}
-		else if (scateDirection == Keyboard::Left and prev_x - sprite.getPosition().x < 100) {
+		else if (scateDirection == Keyboard::Left and prev_x - sprite.getPosition().x < 60) {
 			sprite.move(-10, 0);
 		}
 		else 
@@ -336,8 +335,6 @@ void Mario::consecutiveControl(Keyboard::Key pressedKey){
 			prev_x = sprite.getPosition().x;
 			state = 4;
 			atScatingState = true;
-			cout << "Kayma yönü consecutivve" << endl;
-			cout << consecutiveEvent << endl;
 			scateDirection = consecutiveEvent;
 			consecutiveEvent = pressedKey;
 		}
