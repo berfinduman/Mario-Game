@@ -25,7 +25,6 @@ Mario::Mario(RenderWindow *window):Object(window)
 
 	sprite.setTexture(textures[state]); 
 	sprite.setOrigin(sprite.getTextureRect().width / 2.0f, sprite.getTextureRect().height);
-	
 	heading = 1;
 	sprite.setScale(-1.f, 1.f);
 }
@@ -154,9 +153,7 @@ void Mario::move(Directions dir)
 
 	break;
 	
-	case 4:
-
-	break;
+	;
 	/*
 	case 5:
 		//cout << "now " << dir << "before"<< prevDir;
@@ -209,6 +206,16 @@ void Mario::move(Directions dir)
 	
 }
 
+void Mario::fall(void)
+
+{
+	setSpeed(0, 40);
+	sprite.move(vx, vy);
+}
+
+
+
+
 void Mario::jump(bool down)
 {
 	float y_vel = 9.8 * 10 / 5.0f;
@@ -219,7 +226,12 @@ void Mario::jump(bool down)
 }
 void Mario::draw(RenderWindow& window){
 
-	if (state == 5)
+	if (state == 6) {
+		cout << "Düþüyor Mario "<<endl; 
+		
+		fall(); }
+		
+	else if (state == 5)
 	{
 		atJumpingState = true;
 		//if (DirJ == RIGHT)sprite.move(50, 0);

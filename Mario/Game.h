@@ -10,13 +10,14 @@ class Game
 	Texture floor; 
 	Font font;
 	Text text;
+	Text textfinish;
 	Sprite floorSprite;
 	Texture Pipe[2]; 
 	Sprite pipeSprite[4];
 	Texture Brick;
 	Sprite brickSprite[7];
 	Texture LiveMario;
-	Sprite liveSprite[3];
+	Sprite *liveSprite[3];
 	int prevKeyCode; 
 
 
@@ -24,7 +25,7 @@ class Game
 	int temp_appear = 0;
 	int n_turtle = 0;
 
-	ScoreBoard scoreboard;
+
 	int speed=10;
 	int initial_live_s = 10;
 	Object* objects; 
@@ -43,7 +44,9 @@ public:
 	bool checkBoundary(Object* obj);
 	void hitTheBrick(Object* obj);
 	bool checkCollusionwBrick(Object* obj);
-	
+	bool checkCollusion(Turtle* t, Mario* m, int& side);
+	void marioColsWithTurtle(Mario* mario);
+	void checkTheScore(void);
 
 
 	void TurtlesCollusion(Object* obj);

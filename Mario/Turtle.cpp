@@ -15,6 +15,7 @@ Turtle::Turtle(RenderWindow* window) :Object(window)
 		state = 0;
 		sprite.setTexture(textures[state]);
 		sprite.setOrigin(sprite.getTextureRect().width / 2.0f, sprite.getTextureRect().height);
+
 		//sprite.setOrigin(sprite.getTextureRect().width / 2.0f, sprite.getTextureRect().height);
 
 		
@@ -91,7 +92,12 @@ void Turtle::draw(RenderWindow& window)
 			checkTurtleCollusionable = true;
 			state = 1;
 		}
-	
+		break;
+
+	case 4:
+		
+		fall();
+
 
 
 	}
@@ -113,5 +119,13 @@ void Turtle::jump(bool down)
 	}
 
 }
+
+
+
+void Turtle::fall(void)
+{	
+		setSpeed(0, 40);
+}
+
 
 

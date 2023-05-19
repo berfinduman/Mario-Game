@@ -5,8 +5,7 @@
 #include <iostream>
 #include <string>
 #include "Object.h"
-
-
+#include "ScoreBoard.h"
 
 using namespace std;
 using namespace sf;
