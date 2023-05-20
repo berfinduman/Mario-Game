@@ -232,10 +232,12 @@ void Mario::jump(bool down)
 
 void Mario::draw(RenderWindow& window){
 
-	if (state == 6) {
+	if (state == 6) 
+	{
 		cout << "Düþüyor Mario "<<endl; 
 		
-		fall(); }
+		fall();
+	}
 		
 	else if (state == 5)
 
@@ -289,7 +291,6 @@ void Mario::draw(RenderWindow& window){
 
 		}
 
-		window.draw(sprite);
 	}
 	else if (state == 4) {
 		sprite.setTexture(textures[state]);
@@ -311,13 +312,15 @@ void Mario::draw(RenderWindow& window){
 			state = 0;
 			sprite.setTexture(textures[state]);
 		}
-		window.draw(sprite);
 
 	}
 	
-	else atJumpingState = false;
+	else
+	atJumpingState = false;
+
 	sprite.setTexture(textures[state]);
-	window.draw(sprite);
+	Object::draw(window);
+	
 }
 
 

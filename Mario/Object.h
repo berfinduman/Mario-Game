@@ -47,9 +47,7 @@ public:
 	//virtual void jump(bool down); //Abstract method that will be overridden
 	void setAngle(Vector2f pos, float);
 	virtual ~Object() {
-
-
-	}
+	};
 	void setSpeed(float x, float y);
 	virtual void jump(bool down);
 	Vector2f getSpeed(void); 
