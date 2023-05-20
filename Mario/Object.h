@@ -43,7 +43,7 @@ public:
 	virtual void draw(RenderWindow& window);
 	bool atJumpingState=false; //mario
 	//void move(Directions dir); //Abstract method that will be overridden 
-	void fall(void); //Abstract method that will be overridden 
+	virtual void fall(void); //Abstract method that will be overridden 
 	//virtual void jump(bool down); //Abstract method that will be overridden
 	void setAngle(Vector2f pos, float);
 	virtual ~Object() {

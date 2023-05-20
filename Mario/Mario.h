@@ -1,9 +1,10 @@
 #pragma once
 #include "Common.h"
  
-class Mario:public Object {
+class Mario :public Object, public ScoreBoard 
+{
 protected:
-	
+
 	
 public: 
 	
@@ -24,6 +25,7 @@ public:
 	Keyboard::Key scateDirection = Keyboard::Down;// temp definiton for initalize
 	bool changedDirection = false;
 	void consecutiveControl(Keyboard::Key key);
+	
 	
 };
 
