@@ -409,8 +409,10 @@ void Game::drawObjects(void)
 				cout << "Mario is colliding brick or floor." << endl;
 				if (onFloor(cur_mario))
 				{ 
+					
 					if (cur_mario->atJumpingState)
 					{
+						cur_mario->DirJ = Mario::STABLE;
 						cout << "while mario is jumping." << endl;
 						cur_mario->state = 0;
 						cur_mario->sprite.setTexture(cur_mario->textures[cur_mario->state]);
@@ -679,6 +681,7 @@ void Game::checkTheScore()
 			{
 
 				cout << "buraya geldik"<<endl;
+				mario->DirJ = mario->STABLE;
 				mario->setPosition(Vector2f(float(Pipe[0].getSize().x + 55), float(window->getSize().y - (floor.getSize().y + Pipe[0].getSize().y + 45))));
 				mario->state = 0;
 				mario->setLives(1);
