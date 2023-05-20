@@ -14,6 +14,8 @@ Turtle::Turtle(RenderWindow* window) :Object(window)
 		}
 		state = 0;
 		sprite.setTexture(textures[state]);
+		sprite.setOrigin(sprite.getTextureRect().width / 2.0f, sprite.getTextureRect().height);
+
 		//sprite.setOrigin(sprite.getTextureRect().width / 2.0f, sprite.getTextureRect().height);
 
 		
@@ -34,24 +36,70 @@ void Turtle::draw(RenderWindow& window)
 	else sprite.move(-vx, vy);
 
 
-	switch(state)
+	switch (state)
 	{
 	case 0:
+		if (fallTurtle) state = 2;
+		else state = 1;
+		if (headOnTurtle)
+		{
+			headingTime -= 1;
 
-		state = 1;
-	break;
+			if (headingTime == 8) state = 3;
+
+		}
+		break;
 
 
 	case  1:
-	
-		state = 0;
-	break;
-	
+		if (fallTurtle) state = 2;
+		else state = 0;
+
+
+		if (headOnTurtle) state = 0;
+		break;
+
 
 	case 2:
-		state = 0;
-	break;
-	
+		if (fallTurtle) state = 2;
+		else state = 0;
+		if (headOnTurtle) state = 0;
+		break;
+
+	case 3:
+
+
+		if (headingTime  >0)
+		{
+			headingTime -= 1;
+		}
+		else if (headingTime == 0)
+		{
+			if (heading)
+			{
+				heading = 0;
+				sprite.setScale(1.f, 1.f);
+				setSpeed(10.0f, 0.0f);
+			}
+			else
+			{
+				heading = 1;
+				sprite.setScale(-1.f, 1.f);
+				setSpeed(10.0f, 0.0f);
+			}
+			headOnTurtle = false;
+			headingTime = 10;
+			checkTurtleCollusionable = true;
+			state = 1;
+		}
+		break;
+
+	case 4:
+		
+		fall();
+
+
+
 	}
 	window.draw(sprite);
 
@@ -71,4 +119,13 @@ void Turtle::jump(bool down)
 	}
 
 }
+
+
+
+void Turtle::fall(void)
+{	
+		setSpeed(0, 40);
+}
+
+
 

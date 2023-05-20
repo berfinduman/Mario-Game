@@ -35,11 +35,6 @@ void Object::setAngle(Vector2f pos, float angle)
 	
 }
 
-/*void Object::jump(bool down)
-{
-	
-
-}*/
 void Object::setSpeed(float x, float y) 
 
 {
@@ -50,3 +45,16 @@ Vector2f Object::getSpeed(void)
 {
 	return Vector2f(vx, vy);
 }
+
+void Object::jump(bool down) 
+{
+	
+}
+
+
+void Object::fall(void)
+{
+	
+}
+
+

@@ -20,12 +20,11 @@ Mario::Mario(RenderWindow *window):Object(window)
 	}
 	
 	state = 0;
-	speed = 15;
+	speed = 10;
 	check_right = 1;
 
 	sprite.setTexture(textures[state]); 
 	sprite.setOrigin(sprite.getTextureRect().width / 2.0f, sprite.getTextureRect().height);
-	
 	heading = 1;
 	sprite.setScale(-1.f, 1.f);
 }
@@ -34,55 +33,36 @@ void Mario::move(Directions dir)
 	switch (state)
 	{
 	case 0:
+		
 		if (dir == RIGHT)
 		{
 
 			check_right = 1;
 			setSpeed(speed, 0);
-			sprite.move(vx, vy);
+			//sprite.move(vx, vy);
 			state =2;
 			//cout << "State 0dan " << state << endl;
 		}
 
-		if (dir ==JUMPR)
-		{
-			//cout << "Girdi";
-			check_right = 1;
-			jump(false);
-			setSpeed(3*speed, 0);
-			sprite.move(vx, vy);
-			state = 5;
-			//cout << "State 0dan " << state << endl;
-		}
-		if (dir == JUMPL)
-		{
-			//cout << "Girdi";
-			check_right = 0;
-			jump(false);
-			setSpeed(-3 * speed, 0);
-			sprite.move(vx, vy);
-			state = 5;
-			//cout << "State 0dan " << state << endl;
-		}
-
+		
 
 		if (dir == LEFT)
 		{
 
 			check_right = 0;
 			setSpeed(-speed, 0);
-			sprite.move(vx, vy);
+			//sprite.move(vx, vy);
 			state = 2;
 
 			//cout << "State 0dan " << state << endl;
 		}
+		/*
 		if (dir == UP)
 		{
 			
 
 			//sprite.move(Vector2f(90, -float(window->getSize().y)/4.f));
 			//cout << window->getSize().x<< endl;
-			cout << "Neler oluyor"<< endl;
 			//cout << float(window->getSize().y) << endl;
 			//sprite.move(Vector2f(0, -75));
 
@@ -90,12 +70,7 @@ void Mario::move(Directions dir)
 			state = 5;
 			//cout << float(this->window->getSize().y) << endl;
 			//cout << "State 0dan " << state << endl;
-		}
-
-
-		
-		
-
+		}*/
 
 	break;
 	case 1:
@@ -106,7 +81,7 @@ void Mario::move(Directions dir)
 			check_right = 1;
 
 			setSpeed(speed, 0);
-			sprite.move(vx, vy);
+			//sprite.move(vx, vy);
 			state = 0;
 
 			//cout << "State 2den " << state << endl;
@@ -117,7 +92,7 @@ void Mario::move(Directions dir)
 
 			check_right = 0;
 			setSpeed(-speed, 0);
-			sprite.move(vx, vy);
+			//sprite.move(vx, vy);
 			state = 0;
 			//cout << "State 2den " << state << endl;
 
@@ -134,7 +109,7 @@ void Mario::move(Directions dir)
 			check_right = 1;
 
 			setSpeed(speed, 0);
-			sprite.move(vx, vy);
+			//sprite.move(vx, vy);
 			state = 3;
 
 			//cout << "State 2den " << state << endl;
@@ -145,7 +120,7 @@ void Mario::move(Directions dir)
 
 			check_right = 0;
 			setSpeed(-speed, 0);
-			sprite.move(vx, vy);
+			//sprite.move(vx, vy);
 			state = 3;
 			//cout << "State 2den " << state << endl;
 
@@ -160,7 +135,7 @@ void Mario::move(Directions dir)
 
 			check_right = 1;
 			setSpeed(speed, 0);
-			sprite.move(vx, vy);
+			
 			state = 1;
 			//cout << "State 3den " << state << endl;
 		}
@@ -169,7 +144,7 @@ void Mario::move(Directions dir)
 
 			check_right = 0;
 			setSpeed(-speed, 0);
-			sprite.move(vx, vy);
+			//sprite.move(vx, vy);
 			state = 1;
 			//cout << "State 3den " << state << endl;
 
@@ -178,6 +153,7 @@ void Mario::move(Directions dir)
 
 	break;
 	
+
 	/*
 	case 5:
 		//cout << "now " << dir << "before"<< prevDir;
@@ -230,47 +206,61 @@ void Mario::move(Directions dir)
 	
 	//cout << "Right" << heading << "Check" << check_right << endl;
 	heading= check_right;
+	sprite.move(vx, vy);
 	
 	
 }
+
+void Mario::fall(void)
+
+{
+	setSpeed(0, 40);
+	sprite.move(vx, vy);
+}
+
+
+
 
 void Mario::jump(bool down)
 {
 	float y_vel = 9.8 * 10 / 5.0f;
-	if (down)
-	{
-		
-		setSpeed(0, y_vel);
-		sprite.move(vx, vy);
-	}
-
-	else
-	{
-		setSpeed(0, -y_vel);
-		sprite.move(vx, vy);
-	}
+	if (down) setSpeed(0, y_vel);
+	else setSpeed(0, -y_vel);
+	sprite.move(vx, vy);
 
 }
-void Mario::draw(RenderWindow& window)
-{
-	
-	if (state == 5)
+
+void Mario::draw(RenderWindow& window){
+
+	if (state == 6) {
+		cout << "Düþüyor Mario "<<endl; 
+		
+		fall(); }
+		
+	else if (state == 5)
+
 	{
 		atJumpingState = true;
 		//if (DirJ == RIGHT)sprite.move(50, 0);
 		sprite.setTexture(textures[state]);
+
 		//cout << "PrevY :   " << prev_y << "NowY " << sprite.getPosition().y <<"FARK   " << sprite.getPosition().y - prev_y  << endl;
 
-		if (0 <= (prev_y - sprite.getPosition().y) and (prev_y - sprite.getPosition().y) < 100)
+		cout << "Girdi1" << endl;
+
+		if (0 <= (prev_y - sprite.getPosition().y) and (prev_y - sprite.getPosition().y) < jumpHeight)
 		{
-			if (DirJ == RIGHT)sprite.move(20, 0);
-			if (DirJ == LEFT) sprite.move(-20, 0);
+			//initial_jumping_mario = 1;
+			if (DirJ == RIGHT)sprite.move(10, 0);
+			if (DirJ == LEFT) sprite.move(-10, 0);
 
 			jump(false);
+			cout << "Girdi2" << endl;
+
 			cout << "PrevY :   " << prev_y << "NowY " << sprite.getPosition().y << "FARK   " << prev_y - sprite.getPosition().y << endl;
 
 		}
-		else if (prev_y - sprite.getPosition().y >= 100)
+		else if (prev_y - sprite.getPosition().y >= jumpHeight)
 		{
 
 			prev_y = sprite.getPosition().y - 1;
@@ -286,13 +276,19 @@ void Mario::draw(RenderWindow& window)
 			cout << "TRUEPrevY :   " << prev_y << "NowY " << sprite.getPosition().y << "FARK   " << prev_y - sprite.getPosition().y << endl;
 
 		}
-		if (prev_y - sprite.getPosition().y < -100.0f)
+		if (prev_y - sprite.getPosition().y < -jumpHeight)
 		{
+			cout << "Girdi3" << endl;
 			atJumpingState = false;
 			DirJ = STABLE;
 			state = 0;
 			sprite.setTexture(textures[state]);
+			//initial_jumping_mario = 0;
+			jumpHeight = 250;
+			checkCollusionBrick = false;
+
 		}
+
 		window.draw(sprite);
 	}
 	else if (state == 4) {
@@ -318,9 +314,10 @@ void Mario::draw(RenderWindow& window)
 		window.draw(sprite);
 
 	}
-	else
-		Object::draw(window);
-
+	
+	else atJumpingState = false;
+	sprite.setTexture(textures[state]);
+	window.draw(sprite);
 }
 
 
@@ -345,6 +342,5 @@ void Mario::consecutiveControl(Keyboard::Key pressedKey){
 		}
 		
 	}
-
-
 }
+
