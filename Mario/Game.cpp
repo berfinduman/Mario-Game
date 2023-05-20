@@ -145,9 +145,11 @@ void Game::update(void)
 		{
 			if (event.type == Event::Closed)
 				window->close();
+
 			if(!(mario->state == 6))
 			{ 
-			if (event.type == Event::KeyPressed)
+			if (event.type == Event::KeyPressed and !mario->atScatingState)
+
 			{
 				if(!mario->atJumpingState) {
 					Vector2f prevPos = mario->getPosition();
@@ -156,32 +158,44 @@ void Game::update(void)
 					{
 						//cout << "Selam" << endl; 
 						//mario->move(Object::Directions::UP);
+
+						 mario->consecutiveEventCount = 1;
+						 mario->atScatingState = 0;
 						mario->state = 5;
 						mario->prev_y = mario->sprite.getPosition().y;
 	
 					}
 					else if (event.key.code == Keyboard::Right)
 					 {
+						 mario->consecutiveControl(event.key.code);
+
 						 
 						 if (Keyboard::isKeyPressed(Keyboard::Up))
 						 {
 							 mario->state = 5;
+							 mario->atScatingState = 0;
 							 mario->prev_y = mario->sprite.getPosition().y;
 							 mario->DirJ = Object::Directions::RIGHT;
 						 }
-						 else
+						 else if(!mario->atScatingState)
 							mario->move(Object::Directions::RIGHT);
+
+						 
 					}
 					else if (event.key.code == Keyboard::Left)
 					{
+						 mario->consecutiveControl(event.key.code);
 						 if (Keyboard::isKeyPressed(Keyboard::Up))
 						 {
 							 mario->state = 5;
+							 mario->atScatingState = 0;
 							 mario->prev_y = mario->sprite.getPosition().y;
 							 mario->DirJ = Object::Directions::LEFT;
 						 }
-						 else
+						 else if (!mario->atScatingState)
 							 mario->move(Object::Directions::LEFT);
+
+						 
 					}
 					if (checkBoundary(mario))
 					{
@@ -208,8 +222,9 @@ void Game::update(void)
 			else 
 				//if (event.type != Event::KeyPressed and prevKeyCode != 723)
 			{
+				mario->consecutiveControl(Keyboard::Down);
 				cout << "YOK Event" << prevKeyCode<<endl;
-				if(prevKeyCode != Keyboard::Up){
+				if(prevKeyCode != Keyboard::Up and !mario->atScatingState){
 				mario->state = 0;
 				mario->sprite.setTexture(mario->textures[mario->state]);}
 				//mario->move(Object::Directions::STABLE);
@@ -341,7 +356,7 @@ void Game::drawObjects(void)
 
 				if (pipeSprite[0].getGlobalBounds().intersects(cur->sprite.getGlobalBounds()))
 				{
-					//cout << "Pipe ile kesiþti+++++++++++++++++++++++++++++++++" << endl;
+					//cout << "Pipe ile kesiÃ¾ti+++++++++++++++++++++++++++++++++" << endl;
 
 					cur->setPosition(Vector2f(float(window->getSize().x - Pipe[1].getSize().x) - 40, Pipe[1].getSize().y + 60));
 
@@ -354,7 +369,7 @@ void Game::drawObjects(void)
 				if (pipeSprite[1].getGlobalBounds().intersects(cur->sprite.getGlobalBounds()))
 				{
 					cur->setPosition(Vector2f(Pipe[1].getSize().x + 40, Pipe[1].getSize().y + 60)); //+28
-					cout << "Pipe ile kesiþti////////////////" << cur->heading << endl;
+					cout << "Pipe ile kesiÃ¾ti////////////////" << cur->heading << endl;
 					//cur->setPosition(Vector2f(Pipe[1].getSize().x, Pipe[1].getSize().y - 10)); //+28
 					cur->sprite.setScale(1.f, 1.f);
 					cur->heading = 0;
@@ -600,7 +615,7 @@ void Game::marioColsWithTurtle(Mario* mario)
 
 					//turtle->setSpeed(0, 0);
 					turtle->state = 4;
-					cout << "Bazý þeyler yaþandý";
+					cout << "BazÃ½ Ã¾eyler yaÃ¾andÃ½";
 				}
 				else
 				{
