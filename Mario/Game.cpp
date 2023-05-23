@@ -154,9 +154,9 @@ void Game::update(void)
 
 		while (window->pollEvent(event) || isKeyPressedActive)
 		{
-			if (event.type == Event::Closed)
+			if (event.type == Event::Closed or event.key.code == Keyboard::Escape)
 				window->close();
-
+			
 			if(!(mario->state == 6))
 			{ 
 				if ((event.type == Event::KeyPressed || isKeyPressedActive) and !mario->atSlidingState) // sliding state untouchable
