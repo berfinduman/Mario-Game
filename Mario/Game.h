@@ -6,58 +6,65 @@
 
 class Game
 {
-	RenderWindow* window; //pointer
-	Texture floor; 
+	RenderWindow* window;
+	Object* objects;
+
 	Font font;
 	Text text;
 	Text textfinish;
+	
+	Texture floor; 
 	Sprite floorSprite;
+
 	Texture Pipe[2]; 
-	Texture newBrick; 
 	Sprite pipeSprite[4];
+
+	Texture newBrick; 
 	Texture Brick;
-	Sprite* hitSprite;
 	Sprite brickSprite[7];
+
+	Sprite* hitSprite;
+
 	Texture LiveMario;
 	Sprite *liveSprite[3];
+
+	//flags
 	int prevKeyCode; 
 	int deneme = 2;
-
 	int appear_turtle;
 	int temp_appear = 0;
 	int n_turtle = 0;
-
-
 	int speed=10;
 	int initial_live_s = 10;
-	Object* objects; 
 	int heading;
 	
-public:      
-	Game(RenderWindow* window); //constructor 
-	Turtle* addTurtle(int heading);		
-	Mario* addMario(void);
+public:     
+	FloatRect rect_turtle;
+	FloatRect rect_t;
+
 	Turtle* turtle;
 	Mario* mario;
+
+	Game(RenderWindow* window);
+
+	Turtle* addTurtle(int heading);		
+	Mario* addMario(void);
+
 	void update(void);
 	void drawBackground(RenderWindow& window);
 	void drawObjects(void);
 	void removeObjects(Object*);
-	bool checkBoundary(Object* obj);
 	void checkHitTheBrickFromButtom(Object* obj);
-	bool checkCollusionwBrick(Object* obj);
-	bool checkCollusion(Turtle* t, Mario* m, int& side);
 	void marioColsWithTurtle(Mario* mario);
 	void checkTheScore(void);
 	void checkTurtleHittedFromBottom(void);
-
 	void checkTurtlesCollusion(Object* obj);
 
-	FloatRect rect_turtle;
-	FloatRect rect_t;
+	bool checkBoundary(Object* obj);
+	bool checkCollusionwBrick(Object* obj);
+	bool checkCollusion(Turtle* t, Mario* m, int& side);
+	bool onFloor(Object* obj);
 	
-	bool onFloor(Object* obj); //Checks if object is touching a floor surface
-	//bool checkCollusion(Turtle *t, Mario *m, int& side); ////Checks if Mario has hit a turtle and from which side
 	~Game();
 
 };

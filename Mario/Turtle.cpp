@@ -95,8 +95,8 @@ void Turtle::draw(RenderWindow& window)
 		break;
 
 	case 4:
-		cout << "turtle reverse direct. "<<fallFree << endl;
-		if (fallFree)
+		cout << "turtle reverse direct. "<<deathFall << endl;
+		if (deathFall)
 		fall();
 		else 
 		{
@@ -122,7 +122,7 @@ void Turtle::draw(RenderWindow& window)
 			{
 				bonustime = 80;
 
-				fallFree = true; // can fall free state
+				deathFall = true; // can fall free state
 				checkTurtleCollusionable = true;
 				state = 0;
 				bonusjumptime = 4;

@@ -15,7 +15,7 @@ public:
 	void draw(RenderWindow& window);
 
 	float prev_y = 0.0f;
-	float prev_x = 0.0f;
+	float prev_x_for_sliding = 0.0f;
 	bool atJumpingState=false;
 	bool atSlidingState = false;
 	bool atFallingState = false;

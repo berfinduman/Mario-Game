@@ -10,7 +10,7 @@ public:
 	
 	//virtual void move(void); 
 	void fall(void) ; 
-	bool fallFree=true;
+	bool deathFall=true;
 	int bonusjumptime = 4;
 	//auto t_start;
 

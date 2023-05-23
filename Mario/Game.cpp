@@ -683,7 +683,7 @@ void Game::marioColsWithTurtle(Mario* mario)
 				if(checkCollusion(turtle, mario, turtle->heading) or turtle->state==4)
 				{
 					turtle->state = 4;
-					turtle->fallFree = true;
+					turtle->deathFall = true;
 				}
 				else
 				{
@@ -701,49 +701,55 @@ void Game::marioColsWithTurtle(Mario* mario)
 
 
 
-bool Game::checkCollusion(Turtle* t, Mario* mario, int& side)
+bool Game::checkCollusion(Turtle* turtle, Mario* mario, int& side)
 {
-	FloatRect rect_p(mario->sprite.getPosition().x - mario->sprite.getGlobalBounds().width / 2, mario->sprite.getPosition().y - mario->sprite.getGlobalBounds().height / 4, mario->textures->getSize().x, (mario->sprite.getGlobalBounds().height / 4));
-	FloatRect rect_turtle = FloatRect(t->sprite.getPosition().x - t->sprite.getGlobalBounds().width / 2, t->sprite.getPosition().y - t->sprite.getGlobalBounds().height, t->textures->getSize().x, (t->sprite.getGlobalBounds().height) / 4); // (x, y, width, height)
+	FloatRect rect_p(mario->sprite.getPosition().x - mario->sprite.getGlobalBounds().width / 2,
+		mario->sprite.getPosition().y - mario->sprite.getGlobalBounds().height / 4,
+		mario->textures->getSize().x,
+		(mario->sprite.getGlobalBounds().height / 4));
+	FloatRect rect_turtle = FloatRect(turtle->sprite.getPosition().x - turtle->sprite.getGlobalBounds().width / 2,
+		turtle->sprite.getPosition().y - turtle->sprite.getGlobalBounds().height,
+		turtle->textures->getSize().x,
+		(turtle->sprite.getGlobalBounds().height) / 4); // (x, y, width, height)
 
-
-	if (rect_p.intersects(rect_turtle))
-	{
-		return true;
-	}
+	return rect_p.intersects(rect_turtle);
 		
 }
 
 
-void Game::checkTurtleHittedFromBottom()
+void Game::checkTurtleHittedFromBottom() // check for bonus 3
 {		
-	Object* obj= objects;
+	Object* obj= objects; // turtles and mario
+
 	while (obj)
 	{
 		if (Turtle* turtle = dynamic_cast<Turtle*>(obj))
 		{
+			// check  bottom of turtle (turtle bottom hitbox)
 			FloatRect rect(turtle->sprite.getPosition().x - turtle->sprite.getGlobalBounds().width / 2,
 				turtle->sprite.getPosition().y - turtle->sprite.getGlobalBounds().height / 2,
 				turtle->textures->getSize().x,
 				(turtle->sprite.getGlobalBounds().height / 2)); // (x, y, width, height) 
-			if (hitSprite and turtle->sprite.getGlobalBounds().intersects(hitSprite->getGlobalBounds()))
+
+			if (hitSprite and turtle->sprite.getGlobalBounds().intersects(hitSprite->getGlobalBounds())) // check any turtle intersects with new created hitSprite
 			{
-				turtle->fallFree = false;
+				//for state 4 determines this is for bonus 4 not for death falling 
+				turtle->deathFall = false;
 				turtle->state = 4;
 				
-				delete hitSprite;
-				hitSprite = new Sprite(newBrick);
-				return; 
+				delete hitSprite; // for not collusion anymore
+				hitSprite = new Sprite(newBrick); //  create new brick without location
+
+				return;  // finish the void
 
 			}
 		}
 		obj = obj->next;
 	}
 
-	delete hitSprite;
-	hitSprite = new Sprite(newBrick);
+	delete hitSprite; // if not touched delete  hitsprite
+	hitSprite = new Sprite(newBrick); //  create new brick without location
 		
-	
 }
 
 void Game::checkTheScore()
@@ -758,31 +764,26 @@ void Game::checkTheScore()
 			{
 
 				mario->setScore(100);
-				//cout << "Buraya geldi mi " << mario->getScore() << endl;
 				removeObjects(cur);
+
 				return; 
-
-
 			}
 		}
-		else {
-
+		else 
+		{
 			if (cur->getPosition().y > window->getSize().y+100)
 			{
-
-				//cout << "buraya geldik"<<endl;
 				mario->DirJ = mario->STABLE;
-				mario->setPosition(Vector2f(float(Pipe[0].getSize().x + 55), float(window->getSize().y - (floor.getSize().y + Pipe[0].getSize().y + 45))));
+				mario->setPosition(Vector2f(
+					float(Pipe[0].getSize().x + 55),
+					float(window->getSize().y - (floor.getSize().y + Pipe[0].getSize().y + 45))));
+
 				mario->state = 0;
 				mario->setLives(1);
+
 				int del_index = (mario->getLives());
-				//cout << "Siliyor"<<del_index;
 				delete liveSprite[del_index];
-				
-
-
 			}
-
 		}
 		cur=cur->next;
 	}
