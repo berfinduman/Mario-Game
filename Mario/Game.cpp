@@ -316,6 +316,7 @@ void Game::update(void)
 			//return to menu
 			RenderWindow* menuWindow; 
 			menuWindow = new RenderWindow(VideoMode(1920, WINDOW_HEIGHT), "Menu");
+			menuWindow->create(sf::VideoMode::getFullscreenModes()[0], "SFML Pencere", sf::Style::Fullscreen);
 			Menu menu(menuWindow);
 			menu.update();
 
