@@ -13,13 +13,15 @@ class Game
 	Text textfinish;
 	Sprite floorSprite;
 	Texture Pipe[2]; 
+	Texture newBrick; 
 	Sprite pipeSprite[4];
 	Texture Brick;
+	Sprite* hitSprite;
 	Sprite brickSprite[7];
 	Texture LiveMario;
 	Sprite *liveSprite[3];
 	int prevKeyCode; 
-
+	int deneme = 2;
 
 	int appear_turtle;
 	int temp_appear = 0;
@@ -47,7 +49,7 @@ public:
 	bool checkCollusion(Turtle* t, Mario* m, int& side);
 	void marioColsWithTurtle(Mario* mario);
 	void checkTheScore(void);
-
+	void checkTurtleHitTheBrick(void);
 
 	void TurtlesCollusion(Object* obj);
 

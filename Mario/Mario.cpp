@@ -234,7 +234,7 @@ void Mario::draw(RenderWindow& window){
 
 	if (state == 6) 
 	{
-		cout << "Düþüyor Mario "<<endl; 
+		//cout << "Mario is falling "<<endl; 
 		
 		fall();
 	}
@@ -295,7 +295,7 @@ void Mario::draw(RenderWindow& window){
 	else if (state == 4) {
 		sprite.setTexture(textures[state]);
 		
-		cout << prev_x << sprite.getPosition().x << "  Bunlar pozisyonlar" << endl;
+		//cout << prev_x << sprite.getPosition().x << "  Bunlar pozisyonlar" << endl;
 		if (scateDirection == Keyboard::Right and sprite.getPosition().x - prev_x < 60)
 		{
 			sprite.move(10, 0);

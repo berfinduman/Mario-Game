@@ -95,9 +95,44 @@ void Turtle::draw(RenderWindow& window)
 		break;
 
 	case 4:
-		
+		cout << "turtle reverse direct. "<<fallFree << endl;
+		if (fallFree)
 		fall();
+		else 
+		{
+			cout << "*/*/*/*/GIRDIIIIIIIIIIII" << endl;
 
+			if (bonusjumptime != 0) {
+				
+
+				jump(2 >= bonusjumptime);
+				bonusjumptime -= 1;
+				
+
+			}
+			else if (bonusjumptime==0)
+			{
+			if (bonustime != 0)
+			{
+				setSpeed(0, 0);
+				checkTurtleCollusionable = false; 
+				bonustime -= 1;
+			}
+			else
+			{
+				bonustime = 0;
+
+				fallFree = true;
+				checkTurtleCollusionable = true;
+				state = 0;
+				bonusjumptime = 4;
+			}
+			}
+		
+			
+			
+
+		}
 
 
 	}
@@ -114,7 +149,7 @@ void Turtle::jump(bool down)
 	}
 	else
 	{
-
+		setSpeed(0, -40);
 
 	}
 
