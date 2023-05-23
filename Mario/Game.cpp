@@ -28,32 +28,32 @@ Mario* Game::addMario(void)
 void Game::drawBackground(RenderWindow& window) {
 	if (!floor.loadFromFile("../assets/floor.png")) //We added exception later on
 	{
-		cout << "File could not be found" << endl;
+		//cout << "File could not be found" << endl;
 	}
 	if (!Pipe[0].loadFromFile("../assets/pipe.png")) //We added exception later on
 	{
-		cout << "File could not be found" << endl;
+		//cout << "File could not be found" << endl;
 	}
 
 	if (!Pipe[1].loadFromFile("../assets/pipeS.png")) //We added exception later on
 	{
-		cout << "File could not be found" << endl;
+		//cout << "File could not be found" << endl;
 	}
 
 	if (!Brick.loadFromFile("../assets/brick.png")) //We added exception later on
 	{
-		cout << "File could not be found" << endl;
+		//cout << "File could not be found" << endl;
 	}
 
 	if (!LiveMario.loadFromFile("../assets/mariohead.png")) //We added exception later on
 	{
-		cout << "File could not be found" << endl;
+		//cout << "File could not be found" << endl;
 	}
 
 	
 	if (!font.loadFromFile("../assets/font.ttf"))
 	{
-		cout << "Font could not be found" << endl; 
+		//cout << "Font could not be found" << endl; 
 	}
 
 	if (!newBrick.loadFromFile("../assets/yenibrick2.png"))
@@ -150,20 +150,32 @@ void Game::update(void)
 	{
 
 		Event event;
-		while (window->pollEvent(event))
+
+		bool isKeyPressedActive = false; // solution for first input delay
+
+
+		if (Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::Up) || Keyboard::isKeyPressed(Keyboard::Left)) {
+			isKeyPressedActive = true;
+		}
+
+
+		while (window->pollEvent(event) || isKeyPressedActive)
 		{
 			if (event.type == Event::Closed)
 				window->close();
 
 			if(!(mario->state == 6))
 			{ 
-			if (event.type == Event::KeyPressed and !mario->atScatingState)
+
+
+			if ((event.type == Event::KeyPressed || isKeyPressedActive) and !mario->atScatingState)
 
 			{
+				
 				if(!mario->atJumpingState) {
 					Vector2f prevPos = mario->getPosition();
 					//cout << "PrevPos " << prevPos.x<<" " << prevPos.y << endl;
-					 if (event.key.code == Keyboard::Up)
+					 if (Keyboard::isKeyPressed(Keyboard::Up))
 					{
 						//cout << "Selam" << endl; 
 						//mario->move(Object::Directions::UP);
@@ -174,9 +186,9 @@ void Game::update(void)
 						mario->prev_y = mario->sprite.getPosition().y;
 	
 					}
-					else if (event.key.code == Keyboard::Right)
+					else if (Keyboard::isKeyPressed(Keyboard::Right))
 					 {
-						 mario->consecutiveControl(event.key.code);
+						 mario->consecutiveControl(Keyboard::Right);
 
 						 
 						 if (Keyboard::isKeyPressed(Keyboard::Up))
@@ -191,9 +203,9 @@ void Game::update(void)
 
 						 
 					}
-					else if (event.key.code == Keyboard::Left)
+					else if (Keyboard::isKeyPressed(Keyboard::Left))
 					{
-						 mario->consecutiveControl(event.key.code);
+						 mario->consecutiveControl(Keyboard::Left);
 						 if (Keyboard::isKeyPressed(Keyboard::Up))
 						 {
 							 mario->state = 5;
@@ -208,7 +220,7 @@ void Game::update(void)
 					}
 					if (checkBoundary(mario))
 					{
-						cout << "Fonksiyona girdi" << mario->getPosition().x << "   " << mario->getPosition().y;
+						//cout << "Fonksiyona girdi" << mario->getPosition().x << "   " << mario->getPosition().y;
 						mario->setSpeed(0, 0);
 						mario->setPosition(prevPos);
 					}
@@ -217,20 +229,22 @@ void Game::update(void)
 					//cout << "Event" << event.key.code << endl;
 				}
 				else {
-					if (event.key.code == Keyboard::Left)
+					if (Keyboard::isKeyPressed(Keyboard::Left))
 					{
 						mario->DirJ = Object::Directions::LEFT;
 					}
-					else if (event.key.code == Keyboard::Right)
+					else if (Keyboard::isKeyPressed(Keyboard::Right))
 					{
 						mario->DirJ = Object::Directions::RIGHT;
-					}
+					}else 
+						mario->DirJ = Object::Directions::STABLE;
 				}
 			}
 			
 			else 
 				//if (event.type != Event::KeyPressed and prevKeyCode != 723)
 			{
+				cout << "Girerrr" << endl;
 				mario->consecutiveControl(Keyboard::Down);
 				//cout << "YOK Event" << prevKeyCode<<endl;
 				if(prevKeyCode != Keyboard::Up and !mario->atScatingState){
@@ -240,7 +254,7 @@ void Game::update(void)
 				//cout << "!" << event.key.code << endl;
 			}
 			}
-
+			isKeyPressedActive = false;
 		}
 		if (temp_appear == appear_turtle and n_turtle!=NUM_TURTLES)
 		{
@@ -263,10 +277,12 @@ void Game::update(void)
 
 		for (int i = 0; i < size(brickSprite); i++) window->draw(brickSprite[i]);
 		
+
 		for (int i = 0; i < mario->getLives(); i++) { if (liveSprite[i]) {   window->draw(*liveSprite[i]); } }
 		checkTheScore();
 		//cout << mario->atJumpingState << "before mario draw" << endl;
 		
+
 
 
 		//cout << "deneme" << endl;
@@ -384,7 +400,7 @@ void Game::drawObjects(void)
 				if (pipeSprite[1].getGlobalBounds().intersects(cur_turtle->sprite.getGlobalBounds()))
 				{
 					cur_turtle->setPosition(Vector2f(Pipe[1].getSize().x + 40, Pipe[1].getSize().y + 60)); //+28
-					//cout << "Pipe ile kesisti////////////////" << cur_turtle->heading << endl;
+
 					//cur->setPosition(Vector2f(Pipe[1].getSize().x, Pipe[1].getSize().y - 10)); //+28
 					cur_turtle->sprite.setScale(1.f, 1.f);
 					cur_turtle->heading = 0;
@@ -415,7 +431,7 @@ void Game::drawObjects(void)
 			}
 			if(cur_mario->state!=6)
 			{ 
-				//cout << mario->atJumpingState << "Mario jumping stateee if not state 6." << endl;
+
 			if (checkCollusionwBrick(cur_mario))
 			{
 				//cout << "Mario is colliding brick or floor." << endl;
@@ -467,7 +483,7 @@ void Game::drawObjects(void)
 void Game::removeObjects(Object* obj)
 {
 	Object* cur = objects;
-	cout << "enterthe func" << endl;
+	//cout << "enterthe func" << endl;
 	Object* prev = NULL;
 	while (cur)
 	{
@@ -478,7 +494,7 @@ void Game::removeObjects(Object* obj)
 			else objects = cur->next;
 
 			delete cur;
-			cout << "delete etti ho" << endl;
+			//cout << "delete etti ho" << endl;
 			return;
 		}
 	
@@ -558,13 +574,15 @@ void Game::hitTheBrick(Object* obj)
 	{
 	if (rect_top.intersects(brickSprite[i].getGlobalBounds()))
 	{
-		//if (dynamic_cast<Mario*> (obj)) cout << "Bricke ustten vurdu "<<endl;
+		//if (dynamic_cast<Mario*> (obj)) //cout << "Bricke ustten vurdu "<<endl;
 		obj->jumpHeight = obj->prev_y - obj->sprite.getPosition().y;
+
 		cout <<"Carefulll" << obj->jumpHeight << endl;
 		hitSprite->setPosition(obj->getPosition().x-30, obj->getPosition().y - 140);
 		window->draw(*hitSprite);
 		//Vector2f hitPos = Vector2f(obj->getPosition().x, obj->getPosition().y-100);
 		
+
 
 	}
 
@@ -583,8 +601,8 @@ bool Game::checkBoundary(Object* obj)
 		//or  obj->getPosition().x< 0 )
 		//or obj->getPosition().x> WINDOW_WIDTH)
 	{
-		cout << "checkboundary e girdi" << endl;
-		cout <<obj->getPosition().x << endl;
+		//cout << "checkboundary e girdi" << endl;
+		//cout <<obj->getPosition().x << endl;
 		
 		return true;
 	}
@@ -665,8 +683,10 @@ void Game::marioColsWithTurtle(Mario* mario)
 
 					//turtle->setSpeed(0, 0);
 					turtle->state = 4;
+
 					turtle->fallFree = true;
 					cout << "Bazý þeyler yaþandý";
+
 				}
 				else
 				{
