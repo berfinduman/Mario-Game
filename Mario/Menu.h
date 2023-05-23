@@ -6,25 +6,22 @@
 
 class Menu
 {
-	RenderWindow* menuWindow; //pointer
+	RenderWindow* menuWindow; 
+
 	Font font;
 	Text text[2];
-	bool start;
+
 	Texture marioHead;
 	Sprite marioHeadSprite;
+
 	Texture backGround;
 	Sprite backGroundSprite;
 
 public:
-	Menu(RenderWindow* menuWindow); //constructor 
+
+	Menu(RenderWindow* menuWindow);
 	void update(void);
 	void drawBackground();
-	bool getStarted();
-	//bool onFloor(Object* obj); //Checks if object is touching a floor surface
-	//bool checkCollusion(Turtle *t, Mario *m, int& side); ////Checks if Mario has hit a turtle and from which side
 	~Menu();
-
-
-
 
 };
