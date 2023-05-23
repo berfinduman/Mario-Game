@@ -5,11 +5,8 @@
 int main()
 {
 	HWND hWnd = GetConsoleWindow();
+	ShowWindow(hWnd, SW_MINIMIZE); // minimize window when exe runned
 
-	// minimize the window
-	ShowWindow(hWnd, SW_MINIMIZE);
-	
-	RenderWindow* gamewindow;
 	RenderWindow* menuWindow;
 	menuWindow= new RenderWindow(VideoMode(1920, WINDOW_HEIGHT), "Menu");
 

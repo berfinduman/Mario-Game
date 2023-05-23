@@ -17,7 +17,7 @@ protected:
 	float vy;
 	Texture textures[8];
 	Sprite sprite;
-	bool headOnTurtle=false; //turtle
+	bool isMeetTurtle=false; //turtle
 	int headingTime = 10; //turtle
 	bool fallTurtle=false; //turtle
 	bool checkTurtleCollusionable = true; //turtle

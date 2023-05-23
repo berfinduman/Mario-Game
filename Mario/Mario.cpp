@@ -1,15 +1,9 @@
 #include "Mario.h"
-//heading 0 is left
+
+
 Mario::Mario(RenderWindow *window) :Object(window)
 {
 
-	
-	
-	/*if (!textures[0].loadFromFile("../assets/pipe.png")) //We added exception later on
-	{
-		cout << "File could not be found" << endl;
-	}
-	*/
 	char path[64];
 	for (int i = 0; i < size(textures)-1; i++)
 	{
@@ -199,8 +193,6 @@ void Mario::draw(RenderWindow& window){
 
 	if (state == 6) 
 	{
-		//cout << "Mario is falling "<<endl; 
-		
 		fall();
 	}
 		
@@ -208,12 +200,9 @@ void Mario::draw(RenderWindow& window){
 
 	{
 		atJumpingState = true;
-		//if (DirJ == RIGHT)sprite.move(50, 0);
 		sprite.setTexture(textures[state]);
 
-		//cout << "PrevY :   " << prev_y << "NowY " << sprite.getPosition().y <<"FARK   " << sprite.getPosition().y - prev_y  << endl;
 
-	
 
 		if (0 <= (prev_y - sprite.getPosition().y) and (prev_y - sprite.getPosition().y) < jumpHeight)
 		{
@@ -288,18 +277,23 @@ void Mario::draw(RenderWindow& window){
 	else if (state == 4) {
 		sprite.setTexture(textures[state]);
 		
+
 		//cout << prev_x << sprite.getPosition().x << "  Bunlar pozisyonlar" << endl;
 		if (scateDirection == Keyboard::Right and sprite.getPosition().x - prev_x < 60)
 		{
 			sprite.move(10, 0);
+			if(checkBoundary())
+				sprite.move(-10, 0);
 		}
 		else if (scateDirection == Keyboard::Left and prev_x - sprite.getPosition().x < 60) {
 			sprite.move(-10, 0);
+			if (checkBoundary())
+				sprite.move(10, 0);
 		}
 		else 
 		{
 			scateDirection = Keyboard::Down;
-			atScatingState = false;
+			atSlidingState = false;
 			consecutiveEventCount = 0;
 			consecutiveEvent = Keyboard::Down;
 			state = 0;
@@ -327,7 +321,7 @@ void Mario::consecutiveControl(Keyboard::Key pressedKey){
 		if (consecutiveEventCount > 10) {
 			prev_x = sprite.getPosition().x;
 			state = 4;
-			atScatingState = true;
+			atSlidingState = true;
 			scateDirection = consecutiveEvent;
 			consecutiveEvent = pressedKey;
 		}
@@ -356,3 +350,23 @@ bool Mario::willHittedTheBrick(){
 	return false;
 }
 
+
+bool Mario::checkBoundary()
+{
+
+	if (sprite.getGlobalBounds().intersects(pipeSprite[0].getGlobalBounds()) or sprite.getGlobalBounds().intersects(pipeSprite[1].getGlobalBounds()) or sprite.getGlobalBounds().intersects(pipeSprite[2].getGlobalBounds()) or sprite.getGlobalBounds().intersects(pipeSprite[3].getGlobalBounds()))
+
+	{
+		scateDirection = Keyboard::Down;
+
+		return true;
+	}
+
+	if (sprite.getPosition().x > window->getSize().x or sprite.getPosition().x < 0.0f)
+	{
+		scateDirection = Keyboard::Down;
+		return true;
+	}
+
+	return false;
+}

@@ -44,14 +44,14 @@ public:
 	void drawObjects(void);
 	void removeObjects(Object*);
 	bool checkBoundary(Object* obj);
-	void hitTheBrick(Object* obj);
+	void checkHitTheBrickFromButtom(Object* obj);
 	bool checkCollusionwBrick(Object* obj);
 	bool checkCollusion(Turtle* t, Mario* m, int& side);
 	void marioColsWithTurtle(Mario* mario);
 	void checkTheScore(void);
-	void checkTurtleHitTheBrick(void);
+	void checkTurtleHittedFromBottom(void);
 
-	void TurtlesCollusion(Object* obj);
+	void checkTurtlesCollusion(Object* obj);
 
 	FloatRect rect_turtle;
 	FloatRect rect_t;

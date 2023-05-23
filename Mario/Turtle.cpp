@@ -41,7 +41,7 @@ void Turtle::draw(RenderWindow& window)
 	case 0:
 		if (fallTurtle) state = 2;
 		else state = 1;
-		if (headOnTurtle)
+		if (isMeetTurtle)
 		{
 			headingTime -= 1;
 
@@ -56,14 +56,14 @@ void Turtle::draw(RenderWindow& window)
 		else state = 0;
 
 
-		if (headOnTurtle) state = 0;
+		if (isMeetTurtle) state = 0;
 		break;
 
 
 	case 2:
 		if (fallTurtle) state = 2;
 		else state = 0;
-		if (headOnTurtle) state = 0;
+		if (isMeetTurtle) state = 0;
 		break;
 
 	case 3:
@@ -87,7 +87,7 @@ void Turtle::draw(RenderWindow& window)
 				sprite.setScale(-1.f, 1.f);
 				setSpeed(10.0f, 0.0f);
 			}
-			headOnTurtle = false;
+			isMeetTurtle = false;
 			headingTime = 10;
 			checkTurtleCollusionable = true;
 			state = 1;
