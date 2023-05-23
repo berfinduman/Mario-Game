@@ -517,8 +517,8 @@ bool Game::checkCollusionwBrick(Object* obj)
 }
 bool Game::onFloor(Object* obj)
 {
-	//FloatRect rect;
-	/*
+	FloatRect rect;
+	
 	if (dynamic_cast<Turtle*> (obj))
 	{
 		if (obj->heading)
@@ -537,8 +537,8 @@ bool Game::onFloor(Object* obj)
 
 
 	else rect = FloatRect(obj->sprite.getPosition().x - obj->sprite.getGlobalBounds().width / 2, obj->sprite.getPosition().y - obj->sprite.getGlobalBounds().height / 4, obj->textures->getSize().x, (obj->sprite.getGlobalBounds().height / 4));
-	*/
-	
+	/**/
+	/*
 	FloatRect rect = obj->sprite.getGlobalBounds();
 	FloatRect floorRect = floorSprite.getGlobalBounds();
 	
@@ -547,19 +547,19 @@ bool Game::onFloor(Object* obj)
 	{
 		return true;
 	}
-
+	*/
 	for (int i = 0; i < size(brickSprite); i++)
 	{
-		/*if (rect.intersects(brickSprite[i].getGlobalBounds()) or rect.intersects(floorSprite.getGlobalBounds()))
+		if (rect.intersects(brickSprite[i].getGlobalBounds()) or rect.intersects(floorSprite.getGlobalBounds()))
 		{
 			return true;
-		}*/
-		FloatRect brickRect = brickSprite[i].getGlobalBounds();
+		}
+		/*FloatRect brickRect = brickSprite[i].getGlobalBounds();
 		
 		if (rect.intersects(brickRect) && (rect.top+rect.height <= brickRect.top + brickRect.height ))
 		{
 			return true; 
-		}
+		}*/
 
 		
 	}
@@ -578,8 +578,12 @@ void Game::hitTheBrick(Object* obj)
 		obj->jumpHeight = obj->prev_y - obj->sprite.getPosition().y;
 
 		cout <<"Carefulll" << obj->jumpHeight << endl;
-		hitSprite->setPosition(obj->getPosition().x-30, obj->getPosition().y - 140);
-		window->draw(*hitSprite);
+		cout << "X POS" << brickSprite[i].getPosition().x << "Y POS" << brickSprite[i].getPosition().y<<endl;
+		FloatRect rectBrick(brickSprite[i].getPosition().x +45, brickSprite[i].getPosition().y, brickSprite[i].getGlobalBounds().width-70, brickSprite[i].getGlobalBounds().height);
+		if (rectBrick.intersects(rect_top))
+		{
+		hitSprite->setPosition(obj->getPosition().x - 30, obj->getPosition().y - 140);
+		window->draw(*hitSprite);}
 		//Vector2f hitPos = Vector2f(obj->getPosition().x, obj->getPosition().y-100);
 		
 
