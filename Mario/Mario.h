@@ -27,6 +27,8 @@ public:
 	bool changedDirection = false;
 	void consecutiveControl(Keyboard::Key key);
 	bool willHittedTheBrick();
+	bool checkBoundary();
 	Sprite brickSprite[7];
+	Sprite pipeSprite[4];
 };
 

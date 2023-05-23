@@ -15,6 +15,9 @@ Game::Game(RenderWindow* window)
 	for (int i = 0; i < size(brickSprite); i++) {
 		mario->brickSprite[i] = brickSprite[i];
 	}
+	for (int i = 0; i < size(pipeSprite); i++) {
+		mario->pipeSprite[i] = pipeSprite[i];
+	}
 	
 	
 	mario->setPosition(Vector2f(float(Pipe[0].getSize().x + 55), float(window->getSize().y - (floor.getSize().y + Pipe[0].getSize().y + 45))));
