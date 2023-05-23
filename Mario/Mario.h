@@ -4,9 +4,6 @@
 
 class Mario :public Object, public ScoreBoard 
 {
-protected:
-
-	
 
 public: 
 	
@@ -21,6 +18,7 @@ public:
 	float prev_x = 0.0f;
 	bool atJumpingState=false;
 	bool atScatingState = false;
+	bool atFallingState = false;
 	Directions DirJ;
 
 	int consecutiveEventCount = 0;
@@ -28,6 +26,7 @@ public:
 	Keyboard::Key scateDirection = Keyboard::Down;// temp definiton for initalize
 	bool changedDirection = false;
 	void consecutiveControl(Keyboard::Key key);
-
+	bool willHittedTheBrick();
+	Sprite brickSprite[7];
 };
 

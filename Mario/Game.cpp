@@ -8,11 +8,14 @@ Game::Game(RenderWindow* window)
 
 	srand(time(NULL));
 	appear_turtle = rand() % 20 + 5;
-
 	mario = addMario();
-
-	
 	drawBackground(*window);
+	
+	for (int i = 0; i < size(brickSprite); i++) {
+		mario->brickSprite[i] = brickSprite[i];
+	}
+	
+	
 	mario->setPosition(Vector2f(float(Pipe[0].getSize().x + 55), float(window->getSize().y - (floor.getSize().y + Pipe[0].getSize().y + 45))));
 	
 
@@ -244,8 +247,10 @@ void Game::update(void)
 			else 
 				//if (event.type != Event::KeyPressed and prevKeyCode != 723)
 			{
-				cout << "Girerrr" << endl;
-				mario->consecutiveControl(Keyboard::Down);
+		
+				if(!mario->atScatingState) {
+					mario->consecutiveControl(Keyboard::Down);
+				}
 				//cout << "YOK Event" << prevKeyCode<<endl;
 				if(prevKeyCode != Keyboard::Up and !mario->atScatingState){
 				mario->state = 0;
@@ -333,47 +338,24 @@ void Game::drawObjects(void)
 		if (Turtle* cur_turtle = dynamic_cast<Turtle*> (cur))
 		{
 			
-			/*
-			if (cur_turtle->heading)
-				//rect_turtle = FloatRect(cur->sprite.getPosition().x - cur->sprite.getGlobalBounds().width / 3, cur->sprite.getPosition().y - cur->sprite.getGlobalBounds().height , cur->textures->getSize().x/2, (cur->sprite.getGlobalBounds().height) / 4); // (x, y, width, height)
-				rect_turtle = FloatRect(cur_turtle->sprite.getPosition().x - cur_turtle->sprite.getGlobalBounds().width / 2, cur_turtle->sprite.getPosition().y - cur_turtle->sprite.getGlobalBounds().height , cur_turtle->textures->getSize().x, (cur_turtle->sprite.getGlobalBounds().height) / 4); // (x, y, width, height)
-			else
-				//rect_turtle = FloatRect(cur->sprite.getPosition().x - cur->sprite.getGlobalBounds().width / 4, cur->sprite.getPosition().y - cur->sprite.getGlobalBounds().height , cur->textures->getSize().x/2, (cur->sprite.getGlobalBounds().height) / 4); // (x, y, width, height)
-				rect_turtle = FloatRect(
-					cur_turtle->sprite.getPosition().x - cur_turtle->sprite.getGlobalBounds().width /2,
-					cur_turtle->sprite.getPosition().y - cur_turtle->sprite.getGlobalBounds().height ,
-					cur_turtle->textures->getSize().x, (cur_turtle->sprite.getGlobalBounds().height) / 4); // (x, y, width, height)
-
-
-			rect_t = FloatRect(cur_turtle->sprite.getPosition().x - cur_turtle->sprite.getGlobalBounds().width / 2, cur_turtle->sprite.getPosition().y - cur_turtle->sprite.getGlobalBounds().height, cur_turtle->textures->getSize().x, (cur_turtle->sprite.getGlobalBounds().height )); // (x, y, width, height)
-*/
-
-
 			if (cur_turtle->state != 4)
 			{
 				if (onFloor(cur_turtle))
 				{
 					TurtlesCollusion(cur_turtle);
-					/*
-					{
-						 cout << "****************************************OOOOOOOOOOOOOOOOOOOOOOOOOOO********************************************" << endl;
-						 cur->headOnTurtle = true;
-					}
-					*/
+		
 					cur_turtle->fallTurtle = false;
 					if (!cur_turtle->headOnTurtle) cur_turtle->setSpeed(10.0f, 0.0f);
-					//cur->sprite.move(10, 0);
+				
 				}
 				else
 				{
 					cur_turtle->setSpeed(0.0f, 10.0f);
 					cur_turtle->fallTurtle = true;
-					//cur->sprite.move(0, 20);
 				};
-				//cout <<"Turtle pos x: "<< cur->getPosition().x <<"  y:" << cur->getPosition().y <<"Headin"<<cur->heading << endl;
+
 				if (cur_turtle->getPosition().x < 10.0f and cur_turtle->heading == 1)
 				{
-					//cout << "************************" << endl;
 					cur_turtle->sprite.setScale(1.f, 1.f);
 					cur_turtle->heading = 0;
 				}
@@ -382,17 +364,14 @@ void Game::drawObjects(void)
 					cur_turtle->sprite.setScale(-1.f, 1.f);
 					cur_turtle->heading = 1;
 
-					//cur->setPosition(Vector2f(1.0f, cur->getPosition().y));
 				};
 
 				if (pipeSprite[0].getGlobalBounds().intersects(cur_turtle->sprite.getGlobalBounds()))
 				{
-					//cout << "Pipe ile kesiþti+++++++++++++++++++++++++++++++++" << endl;
 
 					cur_turtle->setPosition(Vector2f(float(window->getSize().x - Pipe[1].getSize().x) - 40, Pipe[1].getSize().y + 60));
 
 
-					//cur->setPosition(Vector2f(float(window->getSize().x - Pipe[1].getSize().x), Pipe[1].getSize().y - 10));
 					cur_turtle->sprite.setScale(-1.f, 1.f);
 					cur_turtle->heading = 1;
 				}
@@ -401,11 +380,12 @@ void Game::drawObjects(void)
 				{
 					cur_turtle->setPosition(Vector2f(Pipe[1].getSize().x + 40, Pipe[1].getSize().y + 60)); //+28
 
-					//cur->setPosition(Vector2f(Pipe[1].getSize().x, Pipe[1].getSize().y - 10)); //+28
 					cur_turtle->sprite.setScale(1.f, 1.f);
 					cur_turtle->heading = 0;
 				}
+
 			checkTurtleHitTheBrick();
+
 			}
 			
 		}
@@ -413,18 +393,20 @@ void Game::drawObjects(void)
 		{
 			if (cur_mario->state == 5)
 			{
-				if (checkBoundary(cur_mario)) 
+				if (checkBoundary(cur_mario))  // boundry for window
 				{
 					
 					if (cur_mario->DirJ== Object::Directions::RIGHT)
-						cur_mario->sprite.setPosition(cur->sprite.getPosition().x-50, cur_mario->sprite.getPosition().y);
-					else
-						cur_mario->sprite.setPosition(cur_mario->sprite.getPosition().x+50, cur_mario->sprite.getPosition().y);
+					{
+						cur_mario->sprite.setPosition(cur->sprite.getPosition().x - 50, cur_mario->sprite.getPosition().y);
+					}
+					else 
+					{
+						cur_mario->sprite.setPosition(cur_mario->sprite.getPosition().x + 50, cur_mario->sprite.getPosition().y);
+					}
 					
-					//cout << mario->atJumpingState << "Mario jumping stateee boundryyyy " << endl;
 					cur_mario->jump(true);
 					cur_mario->state = 0;
-					//mario->sprite.setTexture(mario->textures[mario->state]);
 					cur_mario->atJumpingState = false;
 					
 				}
@@ -434,10 +416,10 @@ void Game::drawObjects(void)
 
 			if (checkCollusionwBrick(cur_mario))
 			{
-				//cout << "Mario is colliding brick or floor." << endl;
+				cur_mario->atFallingState = false;
+				cout << "Mario is colliding brick or floor." << endl;
 				if (onFloor(cur_mario))
 				{ 
-					
 					if (cur_mario->atJumpingState)
 					{
 						cur_mario->DirJ = Mario::STABLE;
@@ -450,14 +432,14 @@ void Game::drawObjects(void)
 				else hitTheBrick(cur_mario);
 				
 			}
-			else
+			else 
 			{
 				//cout << cur_mario->atJumpingState << "Mario jumping stateee  elsedeeee" << endl;
 				//cout << "Mario is flying" << endl;
-				if (!(cur_mario->atJumpingState)) {
+				if (!(cur_mario->atJumpingState)) { // falling state
 					//cout << "Mario is falling" << endl;
 					cur_mario->jump(true);
-
+					cur_mario->atFallingState = true;
 					
 				}
 				//else cout << "jumping too  "<< cur_mario->atJumpingState<<"  " << cur_mario->state << endl;
@@ -567,30 +549,33 @@ bool Game::onFloor(Object* obj)
 }
 
 void Game::hitTheBrick(Object* obj)
-{
+{	
+	cout << "Hit the brickk" << endl;
 	//FloatRect rect_bottom(obj->sprite.getPosition().x - obj->sprite.getGlobalBounds().width / 2, obj->sprite.getPosition().y - obj->sprite.getGlobalBounds().height / 4, obj->textures->getSize().x, (obj->sprite.getGlobalBounds().height / 4));
 	FloatRect rect_top(obj->sprite.getPosition().x - obj->sprite.getGlobalBounds().width / 2, obj->sprite.getPosition().y - obj->sprite.getGlobalBounds().height, obj->textures->getSize().x, (obj->sprite.getGlobalBounds().height / 4));
 	for (int i = 0; i < size(brickSprite); i++)
 	{
-	if (rect_top.intersects(brickSprite[i].getGlobalBounds()))
-	{
-		//if (dynamic_cast<Mario*> (obj)) //cout << "Bricke ustten vurdu "<<endl;
-		obj->jumpHeight = obj->prev_y - obj->sprite.getPosition().y;
-
-		cout <<"Carefulll" << obj->jumpHeight << endl;
-		cout << "X POS" << brickSprite[i].getPosition().x << "Y POS" << brickSprite[i].getPosition().y<<endl;
-		FloatRect rectBrick(brickSprite[i].getPosition().x +45, brickSprite[i].getPosition().y, brickSprite[i].getGlobalBounds().width-70, brickSprite[i].getGlobalBounds().height);
-		if (rectBrick.intersects(rect_top))
+		if (rect_top.intersects(brickSprite[i].getGlobalBounds()))
 		{
-		hitSprite->setPosition(obj->getPosition().x - 30, obj->getPosition().y - 140);
-		window->draw(*hitSprite);}
-		//Vector2f hitPos = Vector2f(obj->getPosition().x, obj->getPosition().y-100);
+			obj->hittedBrick = true;
+			//if (dynamic_cast<Mario*> (obj)) //cout << "Bricke ustten vurdu "<<endl;
+			cout << "prev y = " << obj->prev_y << "position = " << obj->sprite.getPosition().y << endl;
+			obj->jumpHeight = obj->prev_y - obj->sprite.getPosition().y;
+
+			cout <<"Carefulll" << obj->jumpHeight << endl;
+			cout << "X POS" << brickSprite[i].getPosition().x << "Y POS" << brickSprite[i].getPosition().y<<endl;
+			FloatRect rectBrick(brickSprite[i].getPosition().x +45, brickSprite[i].getPosition().y, brickSprite[i].getGlobalBounds().width-70, brickSprite[i].getGlobalBounds().height);
+			if (rectBrick.intersects(rect_top))
+			{
+			hitSprite->setPosition(obj->getPosition().x - 30, obj->getPosition().y - 140);
+			window->draw(*hitSprite);}
+			//Vector2f hitPos = Vector2f(obj->getPosition().x, obj->getPosition().y-100);
 		
 
 
-	}
+		}
 
-}
+	}
 }
 
 

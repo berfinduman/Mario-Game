@@ -8,7 +8,7 @@ class Object {
 	friend class Game; 
 
 protected:	
-	
+	bool hittedBrick = false;
 	RenderWindow* window; 
 	float jumpHeight = 250.0f; //mario
 	 //Current animation state of the object (one of animation states)

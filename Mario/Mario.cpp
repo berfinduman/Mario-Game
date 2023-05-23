@@ -1,7 +1,10 @@
 #include "Mario.h"
 //heading 0 is left
-Mario::Mario(RenderWindow *window):Object(window)
+Mario::Mario(RenderWindow *window) :Object(window)
 {
+
+	
+	
 	/*if (!textures[0].loadFromFile("../assets/pipe.png")) //We added exception later on
 	{
 		cout << "File could not be found" << endl;
@@ -208,7 +211,9 @@ void Mario::move(Directions dir)
 	heading= check_right;
 	sprite.move(vx, vy);
 	
-	
+	if(atFallingState and willHittedTheBrick())
+		sprite.move(-vx, 0);
+		
 }
 
 void Mario::fall(void)
@@ -226,7 +231,9 @@ void Mario::jump(bool down)
 	float y_vel = 9.8 * 10 / 5.0f;
 	if (down) setSpeed(0, y_vel);
 	else setSpeed(0, -y_vel);
+
 	sprite.move(vx, vy);
+
 
 }
 
@@ -248,14 +255,27 @@ void Mario::draw(RenderWindow& window){
 
 		//cout << "PrevY :   " << prev_y << "NowY " << sprite.getPosition().y <<"FARK   " << sprite.getPosition().y - prev_y  << endl;
 
-		cout << "Girdi1" << endl;
+	
 
 		if (0 <= (prev_y - sprite.getPosition().y) and (prev_y - sprite.getPosition().y) < jumpHeight)
 		{
 			//initial_jumping_mario = 1;
-			if (DirJ == RIGHT)sprite.move(10, 0);
-			if (DirJ == LEFT) sprite.move(-10, 0);
-
+			
+				if (DirJ == RIGHT)
+				{
+					sprite.move(10, 0);
+					if (willHittedTheBrick()) {
+						sprite.move(-10, 0);
+					}
+				}
+				if (DirJ == LEFT)
+				{
+					sprite.move(-10, 0);
+					if (willHittedTheBrick()) {
+						sprite.move(10, 0);
+					}
+				}
+			
 			jump(false);
 			cout << "Girdi2" << endl;
 
@@ -272,14 +292,29 @@ void Mario::draw(RenderWindow& window){
 
 		if (prev_y - sprite.getPosition().y < 0.0f)
 		{
-			if (DirJ == RIGHT)sprite.move(+20, 0);
-			if (DirJ == LEFT) sprite.move(-20, 0);
+			
+				if (DirJ == RIGHT)
+				{
+					sprite.move(10, 0);
+					if (willHittedTheBrick()) {
+						sprite.move(-10, 0);
+					}
+				}
+				if (DirJ == LEFT)
+				{
+					sprite.move(-10, 0);
+					if (willHittedTheBrick()) {
+						sprite.move(10, 0);
+					}
+				}
+			
 			jump(true);
 			cout << "TRUEPrevY :   " << prev_y << "NowY " << sprite.getPosition().y << "FARK   " << prev_y - sprite.getPosition().y << endl;
 
 		}
 		if (prev_y - sprite.getPosition().y < -jumpHeight)
 		{
+			hittedBrick = false;
 			cout << "Girdi3" << endl;
 			atJumpingState = false;
 			DirJ = STABLE;
@@ -345,5 +380,24 @@ void Mario::consecutiveControl(Keyboard::Key pressedKey){
 		}
 		
 	}
+}
+
+
+
+bool Mario::willHittedTheBrick(){
+	for (int i = 0; i < size(brickSprite); i++)
+	{
+		cout << brickSprite[i].getGlobalBounds().left << brickSprite[i].getGlobalBounds().top << endl;
+		if (sprite.getGlobalBounds().intersects(brickSprite[i].getGlobalBounds()))
+		{
+
+			cout << " Mario içine sýçtýn" << endl;
+			return true;
+
+		}
+
+	}
+
+	return false;
 }
 
