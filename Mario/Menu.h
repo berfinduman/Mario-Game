@@ -6,21 +6,22 @@
 
 class Menu
 {
-	RenderWindow* menuWindow; //pointer
+	RenderWindow* menuWindow; 
+
 	Font font;
 	Text text[2];
+
 	Texture marioHead;
 	Sprite marioHeadSprite;
+
 	Texture backGround;
 	Sprite backGroundSprite;
 
 public:
-	Menu(RenderWindow* menuWindow); //constructor 
+
+	Menu(RenderWindow* menuWindow);
 	void update(void);
 	void drawBackground();
 	~Menu();
-
-
-
 
 };

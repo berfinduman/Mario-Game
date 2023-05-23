@@ -229,14 +229,14 @@ void Mario::draw(RenderWindow& window){
 	{
 		sprite.setTexture(textures[state]);
 
-		if (scateDirection == Keyboard::Right and sprite.getPosition().x - prev_x_for_sliding < 60)  // 60 is sliding distance
+		if (slideDirection == Keyboard::Right and sprite.getPosition().x - prev_x_for_sliding < 60)  // 60 is sliding distance
 		{
 			sprite.move(10, 0);
 
 			if(checkBoundary()) // check  did mario hit the boundary coniditons if he did, take back the movement 
 				sprite.move(-10, 0);
 		}
-		else if (scateDirection == Keyboard::Left and prev_x_for_sliding - sprite.getPosition().x < 60) // 60 is sliding distance
+		else if (slideDirection == Keyboard::Left and prev_x_for_sliding - sprite.getPosition().x < 60) // 60 is sliding distance
 		{
 			sprite.move(-10, 0);
 
@@ -245,7 +245,7 @@ void Mario::draw(RenderWindow& window){
 		}
 		else 
 		{	//reset coniditons for stop
-			scateDirection = Keyboard::Down; // stable condition variable is down
+			slideDirection = Keyboard::Down; // stable condition variable is down
 			atSlidingState = false;
 			consecutiveEventCount = 0;
 			consecutiveEvent = Keyboard::Down; // stable condition variable is down
@@ -278,7 +278,7 @@ void Mario::consecutiveControl(Keyboard::Key pressedKey) // consecutive event co
 			prev_x_for_sliding = sprite.getPosition().x;
 			state = 4;
 			atSlidingState = true;
-			scateDirection = consecutiveEvent;
+			slideDirection = consecutiveEvent;
 			consecutiveEvent = pressedKey;
 		}
 		else
@@ -312,7 +312,7 @@ bool Mario::checkBoundary() //check mario at boundary for sliding effect
 	//check for pipes
 	if (sprite.getGlobalBounds().intersects(pipeSprite[0].getGlobalBounds()) or sprite.getGlobalBounds().intersects(pipeSprite[1].getGlobalBounds()) or sprite.getGlobalBounds().intersects(pipeSprite[2].getGlobalBounds()) or sprite.getGlobalBounds().intersects(pipeSprite[3].getGlobalBounds()))
 	{
-		scateDirection = Keyboard::Down;
+		slideDirection = Keyboard::Down;
 
 		return true;
 	}
@@ -320,7 +320,7 @@ bool Mario::checkBoundary() //check mario at boundary for sliding effect
 	//check for window
 	if (sprite.getPosition().x > window->getSize().x or sprite.getPosition().x < 0.0f)
 	{
-		scateDirection = Keyboard::Down;
+		slideDirection = Keyboard::Down;
 		return true;
 	}
 
