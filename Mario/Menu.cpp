@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include "Common.h"
+#include "Game.h"
 #pragma once
 Menu::Menu(RenderWindow* window) {
 
@@ -97,6 +98,10 @@ void Menu::update(void) {
 				if (text[0].getGlobalBounds().contains(mouseClick)) {
 					start = true;
 					menuWindow->close();
+					RenderWindow* gamewindow = new RenderWindow(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MARIO GAME");
+					Game game(gamewindow);
+					game.update();
+
 				}
 			}
 		

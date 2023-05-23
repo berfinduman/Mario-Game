@@ -105,7 +105,7 @@ void Turtle::draw(RenderWindow& window)
 			if (bonusjumptime != 0) {
 				
 
-				jump(2 >= bonusjumptime);
+				jump(2 >= bonusjumptime);  // yukarý aþþaðý
 				bonusjumptime -= 1;
 				
 
@@ -120,9 +120,9 @@ void Turtle::draw(RenderWindow& window)
 			}
 			else
 			{
-				bonustime = 0;
+				bonustime = 80;
 
-				fallFree = true;
+				fallFree = true; // can fall free state
 				checkTurtleCollusionable = true;
 				state = 0;
 				bonusjumptime = 4;

@@ -59,21 +59,7 @@ void Mario::move(Directions dir)
 
 			//cout << "State 0dan " << state << endl;
 		}
-		/*
-		if (dir == UP)
-		{
-			
-
-			//sprite.move(Vector2f(90, -float(window->getSize().y)/4.f));
-			//cout << window->getSize().x<< endl;
-			//cout << float(window->getSize().y) << endl;
-			//sprite.move(Vector2f(0, -75));
-
-			prev_y = sprite.getPosition().y;
-			state = 5;
-			//cout << float(this->window->getSize().y) << endl;
-			//cout << "State 0dan " << state << endl;
-		}*/
+	
 
 	break;
 	case 1:
@@ -157,34 +143,6 @@ void Mario::move(Directions dir)
 	break;
 	
 
-	/*
-	case 5:
-		//cout << "now " << dir << "before"<< prevDir;
-		if (prevDir == UP)
-		{ 
-		//sprite.move(Vector2f(-90, float(window->getSize().y) / 4.f));
-		setSpeed(0, 120);
-		sprite.move(vx, vy);
-
-		//cout << "State 0dan " << state << endl;
-		}
-		else if (prevDir == JUMPR)
-		{
-			//cout <<"*---*-*--*-*-**-*-*-*-*-*-*-**-*--*";
-		setSpeed(3 * speed, 120);
-		sprite.move(vx, vy);
-
-		}
-		else if (prevDir == JUMPL)
-		{
-			//cout <<"*---*-*--*-*-**-*-*-*-*-*-*-**-*--*";
-			setSpeed(-3 * speed, 120);
-			sprite.move(vx, vy);
-
-		}
-		
-		state = 0;
-	break;*/
 	
 
 };
@@ -387,13 +345,10 @@ void Mario::consecutiveControl(Keyboard::Key pressedKey){
 bool Mario::willHittedTheBrick(){
 	for (int i = 0; i < size(brickSprite); i++)
 	{
-		cout << brickSprite[i].getGlobalBounds().left << brickSprite[i].getGlobalBounds().top << endl;
 		if (sprite.getGlobalBounds().intersects(brickSprite[i].getGlobalBounds()))
 		{
 
-			cout << " Mario içine sýçtýn" << endl;
 			return true;
-
 		}
 
 	}

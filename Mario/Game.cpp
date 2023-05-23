@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Turtle.h"
+#include "Menu.h"
 using namespace std;
 Game::Game(RenderWindow* window)
 {
@@ -308,6 +309,11 @@ void Game::update(void)
 			window->display();
 			sleep(milliseconds(1800));
 			window->close();
+			RenderWindow* menuWindow;
+			menuWindow = new RenderWindow(VideoMode(1920, WINDOW_HEIGHT), "Menu");
+
+			Menu menu(menuWindow);
+			menu.update();
 		}
 		
 
@@ -551,20 +557,21 @@ bool Game::onFloor(Object* obj)
 void Game::hitTheBrick(Object* obj)
 {	
 	cout << "Hit the brickk" << endl;
-	//FloatRect rect_bottom(obj->sprite.getPosition().x - obj->sprite.getGlobalBounds().width / 2, obj->sprite.getPosition().y - obj->sprite.getGlobalBounds().height / 4, obj->textures->getSize().x, (obj->sprite.getGlobalBounds().height / 4));
+
 	FloatRect rect_top(obj->sprite.getPosition().x - obj->sprite.getGlobalBounds().width / 2, obj->sprite.getPosition().y - obj->sprite.getGlobalBounds().height, obj->textures->getSize().x, (obj->sprite.getGlobalBounds().height / 4));
+	
 	for (int i = 0; i < size(brickSprite); i++)
 	{
 		if (rect_top.intersects(brickSprite[i].getGlobalBounds()))
 		{
 			obj->hittedBrick = true;
 			//if (dynamic_cast<Mario*> (obj)) //cout << "Bricke ustten vurdu "<<endl;
-			cout << "prev y = " << obj->prev_y << "position = " << obj->sprite.getPosition().y << endl;
+
 			obj->jumpHeight = obj->prev_y - obj->sprite.getPosition().y;
 
 			cout <<"Carefulll" << obj->jumpHeight << endl;
 			cout << "X POS" << brickSprite[i].getPosition().x << "Y POS" << brickSprite[i].getPosition().y<<endl;
-			FloatRect rectBrick(brickSprite[i].getPosition().x +45, brickSprite[i].getPosition().y, brickSprite[i].getGlobalBounds().width-70, brickSprite[i].getGlobalBounds().height);
+			FloatRect rectBrick(brickSprite[i].getPosition().x +35, brickSprite[i].getPosition().y, brickSprite[i].getGlobalBounds().width-70, brickSprite[i].getGlobalBounds().height);
 			if (rectBrick.intersects(rect_top))
 			{
 			hitSprite->setPosition(obj->getPosition().x - 30, obj->getPosition().y - 140);

@@ -15,11 +15,6 @@ int main()
 
 	Menu menu(menuWindow);
 	menu.update();
-	if(menu.getStarted()) {
-		menu.~Menu();
-		gamewindow = new RenderWindow(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MARIO GAME");
-		Game game(gamewindow);
-		game.update();
-	}
+	
 	exit(0);
 }
