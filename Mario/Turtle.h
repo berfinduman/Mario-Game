@@ -14,7 +14,7 @@ public:
 	int bonusjumptime = 4;
 	//auto t_start;
 
-	int bonustime=60;
+	int bonustime=80;
 	void draw(RenderWindow& window);
 	void jump(bool down);
 	

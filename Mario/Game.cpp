@@ -677,7 +677,7 @@ void Game::marioColsWithTurtle(Mario* mario)
 		
 			if (turtle->sprite.getGlobalBounds().intersects(mario->sprite.getGlobalBounds()))
 			{
-				if(checkCollusion(turtle, mario, turtle->heading))
+				if(checkCollusion(turtle, mario, turtle->heading) or turtle->state==4)
 				{
 					
 
@@ -688,6 +688,7 @@ void Game::marioColsWithTurtle(Mario* mario)
 					cout << "Bazý þeyler yaþandý";
 
 				}
+
 				else
 				{
 					mario->state = 6;
