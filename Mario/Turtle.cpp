@@ -81,13 +81,13 @@ void Turtle::draw(RenderWindow& window)
 				{
 					heading = 0;
 					sprite.setScale(1.f, 1.f);
-					setSpeed(10.0f, 0.0f);
+					setSpeed(turtleSpeed, 0.0f);
 				}
 				else
 				{
 					heading = 1;
 					sprite.setScale(-1.f, 1.f);
-					setSpeed(10.0f, 0.0f);
+					setSpeed(turtleSpeed, 0.0f);
 				}
 
 				//reset the variables

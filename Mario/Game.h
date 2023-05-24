@@ -37,6 +37,7 @@ class Game
 	int speed=10;
 	int initial_live_s = 10;
 	int heading;
+	int elapsedTime = 0;
 	
 public:     
 	FloatRect rect_turtle;
@@ -59,7 +60,7 @@ public:
 	void checkTheScore(void);
 	void checkTurtleHittedFromBottom(void);
 	void checkTurtlesCollusion(Object* obj);
-
+	void increaseTurtlesSpeed();
 	bool checkBoundary(Object* obj);
 	bool checkCollusionwBrick(Object* obj);
 	bool checkCollusion(Turtle* t, Mario* m, int& side);

@@ -10,17 +10,17 @@ Menu::Menu(RenderWindow* window) {
 
 
 void Menu::drawBackground() {
-	if (!font.loadFromFile("../assets/font.ttf"))
+	if (font.loadFromFile("../assets/font.ttf") == false)
 	{
-		cout << "Font could not be found" << endl;
+		throw("Font files could not be opened!");
 	}
-	if (!marioHead.loadFromFile("../assets/mariohead.png")) 
+	if (marioHead.loadFromFile("../assets/mariohead.png") == false)
 	{
-		cout << "File could not be found" << endl;
+		throw("Textures files could not be opened!");
 	}
-	if (!backGround.loadFromFile("../assets/background.png"))
+	if (backGround.loadFromFile("../assets/background.png") == false)
 	{
-		cout << "File could not be found" << endl;
+		throw("Textures files could not be opened!");
 	}
 
 	backGroundSprite.setTexture(backGround);
