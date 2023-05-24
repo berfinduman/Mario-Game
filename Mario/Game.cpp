@@ -176,6 +176,10 @@ void Game::update(void)
 {
 	while (window->isOpen())
 	{
+		if (elapsedTime % 1200 == 0) // increase turtles speed after every 30 sec 1200 loop -> 30 sec
+			increaseTurtlesSpeed();
+
+		elapsedTime++;
 
 		Event event;
 		bool isKeyPressedActive = false; // solution for first input delay - for keys which are not released
@@ -343,9 +347,9 @@ void Game::update(void)
 		{
 			
 			if (!mario->getLives()) 
-				textfinish.setString("YOU LOSE");
+				textfinish.setString("GAME OVER");
 			else
-				textfinish.setString("YOU WIN");
+				textfinish.setString("YOU WIN!");
 			
 			window->draw(textfinish); //relevant text is printed on the screen
 			window->display();
@@ -365,6 +369,22 @@ void Game::update(void)
 Game::~Game() //deconstructor
 {
 	window->close();
+}
+
+void Game::increaseTurtlesSpeed() {
+	Object* cur = objects;
+
+	while (cur) 
+	{
+		if (Turtle* cur_turtle = dynamic_cast<Turtle*> (cur)) 
+		{
+			cur_turtle->turtleSpeed = cur_turtle->turtleSpeed + 3.0f;
+		}
+
+		cur = cur->next;
+	}
+
+
 }
 
 
@@ -390,7 +410,7 @@ void Game::drawObjects(void)
 					cur_turtle->fallTurtle = false; //set turtle drop status false
 
 					if (!cur_turtle->isMeetTurtle)  //does not conflict with another turtle
-						cur_turtle->setSpeed(10.0f, 0.0f);
+						cur_turtle->setSpeed(cur_turtle->turtleSpeed, 0.0f);
 				
 				}
 				else

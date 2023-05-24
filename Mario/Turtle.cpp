@@ -8,7 +8,7 @@ Turtle::Turtle(RenderWindow* window) :Object(window)
 		sprintf(path, "../assets/turtle%d.png", (i+1));
 		if (!textures[i].loadFromFile(path)) //We added exception later on
 		{
-			throw("Textures files could not be opened!");
+			cout << "File could not be found" << endl;
 		}
 
 	}
@@ -81,13 +81,13 @@ void Turtle::draw(RenderWindow& window)
 				{
 					heading = 0;
 					sprite.setScale(1.f, 1.f);
-					setSpeed(10.0f, 0.0f);
+					setSpeed(turtleSpeed, 0.0f);
 				}
 				else
 				{
 					heading = 1;
 					sprite.setScale(-1.f, 1.f);
-					setSpeed(10.0f, 0.0f);
+					setSpeed(turtleSpeed, 0.0f);
 				}
 
 				//reset the variables

@@ -8,6 +8,7 @@ public:
 	Turtle(RenderWindow* window);
 
 	bool deathFall=true;
+	float turtleSpeed = 10.0f;
 
 	//bonus  3
 	int turtleBottomHittedJumpTime = 4;
