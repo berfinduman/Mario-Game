@@ -7,11 +7,12 @@ Mario::Mario(RenderWindow *window) :Object(window)
 
 	for (int i = 0; i < size(textures)-1; i++)
 	{
+		//takes mario pictures given in asset location
 		sprintf(path, "../assets/mario%d.png", (i+1));
 
 		if (!textures[i].loadFromFile(path))
 		{
-			cout << "File could not be found" << endl;
+			throw("Textures files could not be opened!");
 		}
 
 	}
@@ -21,7 +22,7 @@ Mario::Mario(RenderWindow *window) :Object(window)
 	check_right = 1;
 
 	sprite.setTexture(textures[state]); 
-	sprite.setOrigin(sprite.getTextureRect().width / 2.0f, sprite.getTextureRect().height);
+	sprite.setOrigin(sprite.getTextureRect().width / 2.0f, sprite.getTextureRect().height); // Set the origin of the sprite to the center point of its texture.
 	heading = 1;
 	sprite.setScale(-1.f, 1.f);
 }
@@ -29,18 +30,19 @@ void Mario::move(Directions dir)
 {
 	switch (state)
 	{
+		//state 0,1,2 set walk animation of mario.
 		case 0:
 		
 			if (dir == RIGHT)
 			{
-				check_right = 1;
+				check_right = 1; //right
 				setSpeed(speed, 0);
 				state =2;
 			}
 			if (dir == LEFT)
 			{
-				check_right = 0;
-				setSpeed(-speed, 0);
+				check_right = 0; //turn left so set 0 this variable
+				setSpeed(-speed, 0); 
 				state = 2;
 			}
 			break;
@@ -125,8 +127,8 @@ void Mario::move(Directions dir)
 
 void Mario::fall(void)
 {
-	setSpeed(0, 40);
-	sprite.move(vx, vy);
+	setSpeed(0, 40); //set vx and vy velocity
+	sprite.move(vx, vy); 
 }
 
 
@@ -135,30 +137,30 @@ void Mario::jump(bool down)
 {
 	float y_vel = 9.8 * 10 / 5.0f;
 
-	if (down) 
+	if (down) //mario is falling
 		setSpeed(0, y_vel);
-	else
+	else //mario is jumping
 		setSpeed(0, -y_vel);
 
-	sprite.move(vx, vy);
+	sprite.move(vx, vy); 
 
 
 }
 
 void Mario::draw(RenderWindow& window){
 
-	if (state == 6) 
+	if (state == 6)  //mario died
 	{
 		fall();
 	}
 		
-	else if (state == 5)
+	else if (state == 5) //jumping state, it is gonna be hard.
 
 	{
 		atJumpingState = true;
 		sprite.setTexture(textures[state]);
 
-
+		//rises up jumpHeight and if not any collusion falls
 		if (0 <= (prev_y - sprite.getPosition().y) and (prev_y - sprite.getPosition().y) < jumpHeight)
 		{
 			

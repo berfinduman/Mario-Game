@@ -4,15 +4,21 @@
 #include <Windows.h>
 int main()
 {
-	HWND hWnd = GetConsoleWindow();
-	ShowWindow(hWnd, SW_MINIMIZE); // minimize window when exe runned
+	try {
+		HWND hWnd = GetConsoleWindow();
+		ShowWindow(hWnd, SW_MINIMIZE); // minimize window when exe runned
 
-	RenderWindow* menuWindow;
-	menuWindow= new RenderWindow(VideoMode(1920, WINDOW_HEIGHT), "Menu");
-	menuWindow->create(sf::VideoMode::getFullscreenModes()[0], "SFML Pencere", sf::Style::Fullscreen);
+		RenderWindow* menuWindow;
+		menuWindow = new RenderWindow(VideoMode(1920, WINDOW_HEIGHT), "Menu");
+		menuWindow->create(sf::VideoMode::getFullscreenModes()[0], "SFML Pencere", sf::Style::Fullscreen);
 
-	Menu menu(menuWindow);
-	menu.update();
-	
-	exit(0);
+		Menu menu(menuWindow);
+		menu.update();
+		exit(0);
+	}
+	catch (const char* msg)
+	{
+
+		cout << msg << endl;
+	}
 }

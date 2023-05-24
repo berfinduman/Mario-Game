@@ -8,7 +8,7 @@ Turtle::Turtle(RenderWindow* window) :Object(window)
 		sprintf(path, "../assets/turtle%d.png", (i+1));
 		if (!textures[i].loadFromFile(path)) //We added exception later on
 		{
-			cout << "File could not be found" << endl;
+			throw("Textures files could not be opened!");
 		}
 
 	}
