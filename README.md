@@ -9,8 +9,8 @@ This is a Mario game with additional bonus features developed using the SFML lib
 
 - **Team Name:** Jan10
 - **Team Members:** 
-  - Berfin Duman (ITU EHB 4th grader)
-  - Talha Mert İnözü (ITU EHB 4th grader)
+  - Berfin Duman 
+  - Talha Mert İnözü 
 
 ## Implementation
 
