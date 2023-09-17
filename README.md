@@ -12,6 +12,18 @@ This is a Mario game with additional bonus features developed using the SFML lib
   - Berfin Duman 
   - Talha Mert İnözü 
 
+## Getting Started
+
+To run the game, follow these steps:
+
+1. Clone the repository.
+2. Open the solution file and build the project.
+3. Run the game in debug mode (x86) or run the executable in the debug directory.
+
+### Quick Start
+If you are only interested in the game, you can experience the game by downloading this drive link and running the .exe file:
+https://drive.google.com/drive/folders/1j6GRVWAmUc8vaVmoRPlddaqhtfD-RUcE?usp=sharing 
+
 ## Implementation
 
 The project consists of several classes, each responsible for different aspects of the game. Here's an overview:
@@ -24,32 +36,24 @@ The project consists of several classes, each responsible for different aspects 
 6. **Turtle:** Class representing the enemy character, Turtle.
 7. **Scoreboard:** Manages the game's score and player lives.
 
-## Getting Started
-
-To run the game, follow these steps:
-
-1. Clone the repository.
-2. Open the solution file and build the project.
-3. Run the game in debug mode (x86) or run the executable in the debug directory.
 
 ## Gameplay
 
-Provide a brief overview of how to play the game, including controls and objectives.
+As we are familiar with, it is played with the arrow keys of the keyboard. Mario has 3 lives and he wins if he kills 5 turtles before they run out of lives, otherwise he loses the game and you are directed to the main screen.
 
 ## Dependencies
 
-- SFML Library
-- Other libraries or tools used in the project
+- SFML Library (This game was developed using Sfml library 2.5.1 version.)
 
 ## Discussion
 
 In this section, you can discuss any challenges faced during development, future improvements, or any interesting technical details about the project.
 
-## Credits
+## Libraries
 
-Give credit to any external resources, libraries, or tutorials that you used in your project.
+https://www.sfml-dev.org/tutorials/2.6/
 
 ## License
 
-Specify the license under which your project is distributed (e.g., MIT License).
+MIT License.
 
